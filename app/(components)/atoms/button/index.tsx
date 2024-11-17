@@ -20,7 +20,7 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
   ) => (
     <button
       ref={ref}
-      disabled={isError || loading}
+      disabled={loading}
       className={twMerge(
         'border-none break-words rounded-lg flex justify-center items-center transition-colors ease-in p-2',
         buttonVariants[variant][color],

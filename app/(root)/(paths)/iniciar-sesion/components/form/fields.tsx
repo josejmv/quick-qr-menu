@@ -4,7 +4,7 @@ import { Button } from '@/(components)/atoms/button'
 
 // types
 import type { FormState, UseFormRegister } from 'react-hook-form'
-import type { Inputs } from './'
+import type { Inputs } from '.'
 import type { FC } from 'react'
 
 type LoginFormContentProps = {
