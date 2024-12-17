@@ -1,8 +1,18 @@
 // main tools
-import CustomProvider from 'next-auth/providers/credentials'
 import NextAuth from 'next-auth'
 
-const handler = NextAuth({
+// providers
+import CustomProvider from 'next-auth/providers/credentials'
+
+// assets
+import User from '~/public/data/user/owner.json'
+
+// types
+import type { AuthOptions } from 'next-auth'
+
+export const authOptions: AuthOptions = {
+  pages: { signIn: '/iniciar-sesion' },
+
   providers: [
     CustomProvider({
       id: 'login',
@@ -12,23 +22,24 @@ const handler = NextAuth({
         password: { type: 'password' },
       },
       authorize: async (credentials) => {
-        if (
-          credentials?.username !== 'josejmvasquez' ||
-          credentials?.password !== '123456'
-        )
-          throw new Error('Credenciales incorrectas')
+        if (credentials?.username !== 'josejmv')
+          throw new Error('username:Usuario no encontrado')
+        if (credentials?.password !== '1234')
+          throw new Error('password:Contraseña incorrecta')
 
-        return { id: '1', email: credentials?.username, name: 'Jose Vasquez' }
+        // fetch user data
+        return User
       },
     }),
   ],
 
   callbacks: {
     jwt: async ({ token, user }) => {
-      if (user) token.id = user.id
+      if (user) token.sub = user.id
 
       return Promise.resolve(token)
     },
+
     session: async ({ session, token }) => {
       session.user = { ...token }
       console.log('SESSION', session)
@@ -36,6 +47,8 @@ const handler = NextAuth({
       return Promise.resolve(session)
     },
   },
-})
+}
+
+const handler = NextAuth(authOptions)
 
 export { handler as GET, handler as POST }

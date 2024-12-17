@@ -8,6 +8,4 @@ import type { FC, HTMLAttributes } from 'react'
 
 export const SessionWrapper: FC<HTMLAttributes<HTMLDivElement>> = ({
   children,
-}) => {
-  return <SessionProvider>{children}</SessionProvider>
-}
+}) => <SessionProvider>{children}</SessionProvider>

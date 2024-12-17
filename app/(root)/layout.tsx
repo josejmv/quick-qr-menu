@@ -8,6 +8,7 @@ import { SessionWrapper } from './session-wrapper'
 import '@/globals.css'
 
 // types
+import type { FC, ReactNode } from 'react'
 import type { Metadata } from 'next'
 
 const geistSans = localFont({
@@ -27,7 +28,11 @@ export const metadata: Metadata = {
   description: 'QuickMenü is a restaurant menu app',
 }
 
-const RootLayout = ({ children }: Readonly<{ children: React.ReactNode }>) => (
+type RootLayoutProps = {
+  children: ReactNode
+}
+
+const RootLayout: FC<RootLayoutProps> = ({ children }) => (
   <SessionWrapper>
     <html lang='es'>
       <body

@@ -1,36 +1,49 @@
 // main tools
-import Image from 'next/image'
+import { getServerSession } from 'next-auth'
+import { redirect } from 'next/navigation'
+import dynamic from 'next/dynamic'
 
 // components
-import { LoginForm } from './components/form'
+import Image from 'next/image'
+
+// utils
+import { authOptions } from '@/(root)/(paths)/api/auth/[...nextauth]/route'
 
 // types
+import type { BusinessDataType } from '@/_types/models/business'
 import type { NextPage } from 'next'
 
-const LoginPage: NextPage = async () => (
-  <main className='h-screen w-full flex justify-center'>
-    <div className='relative h-full w-full max-w-screen-lg flex items-center justify-center py-10 px-10 xl:px-0 flex-col-reverse lg:flex-row gap-16'>
+const LoginPage: NextPage = async () => {
+  const session = await getServerSession(authOptions)
+
+  if (session) {
+    const business: BusinessDataType = await import(
+      `~/public/data/business/${session?.user.id}.json`
+    ).then((data) => data.default)
+
+    redirect(`/${business.slug}/dashboard`)
+  }
+
+  const LoginForm = dynamic(
+    () => import('./components/form').then((module) => module.LoginForm),
+    { loading: () => null }
+  )
+
+  return (
+    <main className='h-screen flex justify-center items-center'>
       <Image
         fill
         priority
-        alt='hero-picture'
-        src='/login-page/picture.jpg'
-        className='object-cover object-center block sm:hidden'
-        sizes='(max-width: 640px) 100vw, (max-width: 768px) 50vw, 33vw'
+        sizes='100vw'
+        alt='background-picture'
+        src='/images/login-page/picture.jpg'
+        className='object-cover object-center brightness-125'
       />
-      <LoginForm />
-      <div className='relative w-full lg:w-1/2 max-h-[340px] lg:max-h-[680px] h-full hidden sm:block'>
-        <Image
-          fill
-          priority
-          alt='hero-picture'
-          src='/login-page/picture.jpg'
-          sizes='(max-width: 640px) 100vw, (max-width: 768px) 50vw, 33vw'
-          className='object-cover object-center rounded-se-3xl rounded-es-3xl'
-        />
+      <div className='max-w-xl relative'>
+        <LoginForm />
       </div>
-    </div>
-  </main>
-)
+    </main>
+  )
+}
 
 export default LoginPage

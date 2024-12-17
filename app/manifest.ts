@@ -5,12 +5,12 @@ import type { MetadataRoute } from 'next'
  * This function returns the manifest for the app
  */
 const manifest = (): MetadataRoute.Manifest => ({
-  start_url: '/',
   name: 'QuickMenü',
   display: 'fullscreen',
   theme_color: '#000000',
   short_name: 'QuickMenü',
   background_color: '#000000',
+  start_url: '/iniciar-sesion',
   description: 'QuickMenü is a restaurant menu app',
   icons: [
     { sizes: '192x192', type: 'image/png', src: '/logo/icon-192x192.png' },

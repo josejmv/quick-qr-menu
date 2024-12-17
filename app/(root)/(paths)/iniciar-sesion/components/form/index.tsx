@@ -1,38 +1,105 @@
 'use client'
 
 // main tools
-import { useSession, signIn } from 'next-auth/react'
+import { signIn, getSession } from 'next-auth/react'
+import { redirect } from 'next/navigation'
 import { useForm } from 'react-hook-form'
 
 // components
-import { LoginFormContent } from './fields'
+import { InputText } from '@/_components/atoms/inputs'
+import { Button } from '@/_components/atoms/button'
+import Link from 'next/link'
 
 // types
+import type { BusinessDataType } from '@/_types/models/business'
 import type { SubmitHandler } from 'react-hook-form'
 import type { FC } from 'react'
 
-export type Inputs = { username: string; password: string }
+type Inputs = { username: string; password: string; submit: string }
 
 export const LoginForm: FC = () => {
-  const { data: session } = useSession()
   const { register, handleSubmit, formState, setError } = useForm<Inputs>()
 
+  /**
+   * @description function to handle the submit of the form
+   */
   const submitControl: SubmitHandler<Inputs> = async (data) => {
     const response = await signIn('login', { ...data, redirect: false })
 
     if (!response?.ok) {
-      setError('username', { message: response?.error ?? 'Error' })
-      setError('password', { message: response?.error ?? 'Error' })
-    }
+      const [key, message] = response?.error?.split(':') ?? []
 
-    console.log({ response, data, session })
+      setError((key as keyof Inputs) ?? 'submit', {
+        message: message ?? 'Error inesperado',
+      })
+    } else {
+      const session = await getSession()
+
+      const business: BusinessDataType = await import(
+        `~/public/data/business/${session?.user.id}.json`
+      ).then((data) => data.default)
+
+      redirect(`/${business.slug}/dashboard`)
+    }
   }
 
   return (
-    <LoginFormContent
-      data={formState}
-      register={register}
+    <form
       onSubmit={handleSubmit(submitControl)}
-    />
+      className='bg-gray-200 bg-opacity-30 backdrop-blur-lg text-primary-content p-8 rounded-3xl'
+    >
+      <div className='text-center pt-3'>
+        <h2 className='text-lg md:text-xl xl:text-2xl'>
+          Inicia sesión y vive la
+        </h2>
+        <h1 className='text-xl md:text-2xl xl:text-3xl font-semibold'>
+          experiencia <span className='text-primary'>QuickMenü</span>
+        </h1>
+      </div>
+
+      <div className='flex flex-col gap-5 my-8'>
+        <InputText
+          isError={!!formState.errors.username}
+          {...register('username', { required: 'Este campo es requerido' })}
+          inputWrapperProps={{
+            label: 'Nombre de usuario',
+            hintText: formState.errors.username?.message,
+            labelClassName: 'text-primary-content-shade-darken-12',
+          }}
+        />
+        <InputText
+          type='password'
+          isError={!!formState.errors.password}
+          {...register('password', { required: 'Este campo es requerido' })}
+          inputWrapperProps={{
+            label: 'Contraseña',
+            hintText: formState.errors.password?.message,
+            labelClassName: 'text-primary-content-shade-darken-12',
+          }}
+        />
+      </div>
+
+      <div className='text-center my-5 flex flex-col gap-2'>
+        <span>
+          ¿No puedes ingresar? <Link href='#'>Recupera tu contraseña</Link>
+        </span>
+        <span>
+          ¿Nuevo en QuickMenü? <Link href='#'>Registrate</Link>
+        </span>
+      </div>
+
+      <Button
+        type='submit'
+        className='w-full font-bold'
+        isError={!!formState.errors.username || !!formState.errors.password}
+      >
+        Iniciar sesión
+      </Button>
+      {formState.errors.submit && (
+        <div className='text-red-500 text-center mt-2'>
+          {formState.errors.submit.message}
+        </div>
+      )}
+    </form>
   )
 }

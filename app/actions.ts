@@ -20,7 +20,6 @@ let subscription: webpush.PushSubscription | null = null
 export async function subscribeUser(sub: webpush.PushSubscription) {
   subscription = sub
 
-  console.log('SUBSCRIBE USER', subscription)
   // In a production environment, you would want to store the subscription in a database
   // For example: await db.subscriptions.create({ data: sub })
   return { success: true }
@@ -32,7 +31,6 @@ export async function subscribeUser(sub: webpush.PushSubscription) {
 export async function unsubscribeUser() {
   subscription = null
 
-  console.log('UNSUBSCRIBE USER', subscription)
   // In a production environment, you would want to remove the subscription from the database
   // For example: await db.subscriptions.delete({ where: { ... } })
   return { success: true }
@@ -42,7 +40,6 @@ export async function unsubscribeUser() {
  * Send a push notification to the user
  */
 export async function sendNotification(message: string) {
-  console.log('SEND NOTIFICATION', subscription)
   if (!subscription) throw new Error('No subscription available')
 
   try {
