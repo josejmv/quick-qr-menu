@@ -2,8 +2,8 @@
 import { PushNotificationProvider } from '@/_contexts/notification/provider'
 
 // components
-import { Sidebar } from './dashboard/components/sidebar'
-import { Navbar } from './dashboard/components/navbar'
+import { Sidebar } from './dashboard/_components/sidebar'
+import { Navbar } from './dashboard/_components/navbar'
 
 // types
 import type { FC, ReactNode } from 'react'

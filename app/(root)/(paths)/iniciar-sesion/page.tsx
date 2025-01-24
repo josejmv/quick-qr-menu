@@ -25,7 +25,7 @@ const LoginPage: NextPage = async () => {
   }
 
   const LoginForm = dynamic(
-    () => import('./components/form').then((module) => module.LoginForm),
+    () => import('./_components/form').then((module) => module.LoginForm),
     { loading: () => null }
   )
 
