@@ -46,9 +46,9 @@ export const LoginForm: FC = () => {
   return (
     <form
       onSubmit={handleSubmit(submitControl)}
-      className='bg-gray-200 bg-opacity-30 backdrop-blur-lg text-primary-content p-8 rounded-3xl'
+      className='bg-gray-500 bg-opacity-30 backdrop-blur-lg text-primary-content p-8 rounded-3xl'
     >
-      <div className='text-center pt-3'>
+      <div className='text-center pt-3 font-[family-name:var(--font-geist-mono)]'>
         <h2 className='text-lg md:text-xl xl:text-2xl'>
           Inicia sesión y vive la
         </h2>

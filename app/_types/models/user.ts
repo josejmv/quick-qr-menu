@@ -2,6 +2,6 @@ export type UserDataType = {
   id: number
   name: string
   email: string
-  image: string
+  picture: string
   role: 'owner' | 'employee'
 }

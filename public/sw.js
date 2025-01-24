@@ -21,7 +21,6 @@ self.addEventListener('push', function (event) {
  * The event listener for the service worker installation
  */
 self.addEventListener('notificationclick', function (event) {
-  console.log('Notification click received.')
   event.notification.close()
   event.waitUntil(clients.openWindow('http://localhost:3000'))
 })

@@ -8,6 +8,7 @@ import CustomProvider from 'next-auth/providers/credentials'
 import User from '~/public/data/user/owner.json'
 
 // types
+import type { UserDataType } from '@/_types/models/user'
 import type { AuthOptions } from 'next-auth'
 
 export const authOptions: AuthOptions = {
@@ -41,8 +42,7 @@ export const authOptions: AuthOptions = {
     },
 
     session: async ({ session, token }) => {
-      session.user = { ...token }
-      console.log('SESSION', session)
+      session.user = { ...token } as UserDataType
 
       return Promise.resolve(session)
     },
