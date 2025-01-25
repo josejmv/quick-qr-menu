@@ -1,20 +1,13 @@
-'use client'
-
-// main tools
-import { signOut } from 'next-auth/react'
+// components
+import { QuickActions } from './_components/quick-actions'
 
 // types
 import type { NextPage } from 'next'
 
-const BusinessPage: NextPage = () => {
-  return (
-    <button
-      type='button'
-      onClick={() => signOut({ callbackUrl: '/iniciar-sesion' })}
-    >
-      hola
-    </button>
-  )
-}
+const BusinessPage: NextPage = async () => (
+  <main>
+    <QuickActions />
+  </main>
+)
 
 export default BusinessPage

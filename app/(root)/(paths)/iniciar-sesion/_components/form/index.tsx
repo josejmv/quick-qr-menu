@@ -81,10 +81,16 @@ export const LoginForm: FC = () => {
 
       <div className='text-center my-5 flex flex-col gap-2'>
         <span>
-          ¿No puedes ingresar? <Link href='#'>Recupera tu contraseña</Link>
+          ¿No puedes ingresar?{' '}
+          <Link className='text-primary' href='#'>
+            Recupera tu contraseña
+          </Link>
         </span>
         <span>
-          ¿Nuevo en QuickMenü? <Link href='#'>Registrate</Link>
+          ¿Nuevo en QuickMenü?{' '}
+          <Link className='text-primary' href='#'>
+            Registrate
+          </Link>
         </span>
       </div>
 
