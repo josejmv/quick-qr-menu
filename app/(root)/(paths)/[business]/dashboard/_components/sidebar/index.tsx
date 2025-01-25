@@ -4,7 +4,7 @@
 import { signOut } from 'next-auth/react'
 
 // components
-import { Button } from '~/app/_components/atoms/button'
+import { Button } from '@/_components/atoms/button'
 import Link from 'next/link'
 
 // icons
@@ -56,7 +56,7 @@ export const Sidebar: FC = () => {
           color='TERTIARY'
           className='mb-4'
           title='Cerrar sesión'
-          onClick={() => signOut({ callbackUrl: '/iniciar-sesion' })}
+          onClick={() => signOut()}
         >
           <PowerIcon className='w-6 h-6' />
         </Button>

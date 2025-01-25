@@ -2,7 +2,7 @@
 
 // components
 import { DialogTitle, Description } from '@headlessui/react'
-import { Button } from '~/app/_components/atoms/button'
+import { Button } from '@/_components/atoms/button'
 
 // types
 import type { FC } from 'react'

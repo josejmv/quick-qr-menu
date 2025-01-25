@@ -1,5 +1,5 @@
 import type { Config } from 'tailwindcss'
-import quickmenuPlugin from './app/(lib)/tailwindcss-plugins'
+import quickmenuPlugin from './app/_lib/tailwindcss-plugins'
 
 export default {
   content: [

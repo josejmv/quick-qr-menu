@@ -2,7 +2,7 @@
 import { PlusIcon } from '@heroicons/react/24/solid'
 
 // components
-import { Button } from '~/app/_components/atoms/button'
+import { Button } from '@/_components/atoms/button'
 
 // types
 import type { CardProps } from './types'

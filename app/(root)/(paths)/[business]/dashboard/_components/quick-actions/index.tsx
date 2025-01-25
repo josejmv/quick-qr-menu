@@ -4,7 +4,7 @@
 import { useMemo, useState } from 'react'
 
 // components
-import { Dialog } from '~/app/_components/atoms/dialog'
+import { Dialog } from '@/_components/atoms/dialog'
 import { Card } from './card'
 
 // utils

@@ -1,11 +1,12 @@
 // main tools
+import dbConnect from '@/_lib/database/db-connect'
 import NextAuth from 'next-auth'
 
 // providers
 import CustomProvider from 'next-auth/providers/credentials'
 
-// assets
-import User from '~/public/data/user/owner.json'
+// models
+import UserService from '@/_lib/database/models/user'
 
 // types
 import type { UserDataType } from '@/_types/models/user'
@@ -23,26 +24,31 @@ export const authOptions: AuthOptions = {
         password: { type: 'password' },
       },
       authorize: async (credentials) => {
-        if (credentials?.username !== 'josejmv')
-          throw new Error('username:Usuario no encontrado')
-        if (credentials?.password !== '1234')
+        await dbConnect()
+
+        const user = await UserService.findOne({
+          username: credentials?.username,
+        })
+        if (!user) throw new Error('username:Usuario no encontrado')
+
+        const formattedUser = JSON.parse(JSON.stringify(user)) as UserDataType
+        if (formattedUser.password !== credentials?.password)
           throw new Error('password:Contraseña incorrecta')
 
-        // fetch user data
-        return User
+        return { ...formattedUser }
       },
     }),
   ],
 
   callbacks: {
     jwt: async ({ token, user }) => {
-      if (user) token.sub = user.id
-
-      return Promise.resolve(token)
+      const formattedUser = user as UserDataType
+      if (formattedUser) token.user = formattedUser
+      return token
     },
 
     session: async ({ session, token }) => {
-      session.user = { ...token } as UserDataType
+      session.user = token.user
 
       return Promise.resolve(session)
     },

@@ -1,4 +1,4 @@
-import type { SVGIconProps } from '~/app/_types'
+import type { SVGIconProps } from '@/_types'
 
 export type CardProps = {
   type: string

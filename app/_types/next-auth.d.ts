@@ -8,4 +8,12 @@ declare module 'next-auth' {
   interface Session {
     user: UserDataType
   }
+
+  type User = UserDataType
+}
+
+declare module 'next-auth/jwt' {
+  interface JWT {
+    user: UserDataType
+  }
 }
