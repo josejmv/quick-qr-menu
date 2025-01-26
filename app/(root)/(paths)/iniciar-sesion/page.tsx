@@ -1,4 +1,5 @@
 // main tools
+import { axiosInstance } from '~/app/_lib/axios-instance'
 import { getServerSession } from 'next-auth'
 import { redirect } from 'next/navigation'
 import dynamic from 'next/dynamic'
@@ -10,18 +11,19 @@ import Image from 'next/image'
 import { authOptions } from '@/(root)/(paths)/api/auth/[...nextauth]/route'
 
 // types
-import type { BusinessDataType } from '@/_types/models/business'
 import type { NextPage } from 'next'
 
 const LoginPage: NextPage = async () => {
   const session = await getServerSession(authOptions)
 
   if (session) {
-    const business: BusinessDataType = await import(
-      `~/public/data/business/${session?.user.id}.json`
-    ).then((data) => data.default)
+    const businesses = await axiosInstance.post('/api/business/get-all', {
+      ownerId: session.user._id,
+    })
 
-    redirect(`/${business.slug}/dashboard`)
+    if (!businesses.data || businesses.data.length === 0)
+      redirect('/crear-negocio')
+    else redirect(`/${businesses.data[0].slug}/dashboard`)
   }
 
   const LoginForm = dynamic(

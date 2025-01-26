@@ -1,6 +1,7 @@
 'use client'
 
 // main tools
+import { axiosInstance } from '~/app/_lib/axios-instance'
 import { signIn, getSession } from 'next-auth/react'
 import { redirect } from 'next/navigation'
 import { useForm } from 'react-hook-form'
@@ -11,7 +12,6 @@ import { Button } from '@/_components/atoms/button'
 import Link from 'next/link'
 
 // types
-import type { BusinessDataType } from '@/_types/models/business'
 import type { SubmitHandler } from 'react-hook-form'
 import type { FC } from 'react'
 
@@ -34,12 +34,13 @@ export const LoginForm: FC = () => {
       })
     } else {
       const session = await getSession()
+      const businesses = await axiosInstance.post('/api/business/get-all', {
+        ownerId: session?.user._id,
+      })
 
-      const business: BusinessDataType = await import(
-        `~/public/data/business/${session?.user.id}.json`
-      ).then((data) => data.default)
-
-      redirect(`/${business.slug}/dashboard`)
+      if (!businesses.data || businesses.data.length === 0)
+        redirect('/crear-negocio')
+      else redirect(`/${businesses.data[0].slug}/dashboard`)
     }
   }
 

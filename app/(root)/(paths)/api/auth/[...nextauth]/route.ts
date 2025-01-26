@@ -1,16 +1,13 @@
 // main tools
-import dbConnect from '@/_lib/database/db-connect'
 import NextAuth from 'next-auth'
 
 // providers
 import CustomProvider from 'next-auth/providers/credentials'
 
-// services
-import { LoginService } from '@/_lib/database/services/auth'
-
 // types
 import type { UserDataType } from '@/_types/models/user'
 import type { AuthOptions } from 'next-auth'
+import { axiosInstance } from '~/app/_lib/axios-instance'
 
 export const authOptions: AuthOptions = {
   pages: { signIn: '/iniciar-sesion' },
@@ -24,15 +21,16 @@ export const authOptions: AuthOptions = {
         password: { type: 'password' },
       },
       authorize: async (credentials) => {
-        await dbConnect()
+        const { data } = await axiosInstance.post<UserDataType>(
+          '/api/user/get-by-username',
+          { username: credentials?.username }
+        )
 
-        const user = await LoginService(credentials?.username)
-
-        if (!user) throw new Error('username:Usuario no encontrado')
-        if (user.password !== credentials?.password)
+        if (!data._id) throw new Error('username:Usuario no encontrado')
+        if (data.password !== credentials?.password)
           throw new Error('password:Contraseña incorrecta')
 
-        return { ...user }
+        return { ...data }
       },
     }),
   ],
