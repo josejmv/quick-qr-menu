@@ -1,7 +1,7 @@
 'use client'
 
 // main tools
-import { axiosInstance } from '~/app/_lib/axios-instance'
+import { axiosInstance } from '@/_lib/axios-instance'
 import { signIn, getSession } from 'next-auth/react'
 import { redirect } from 'next/navigation'
 import { useForm } from 'react-hook-form'

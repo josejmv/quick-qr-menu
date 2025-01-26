@@ -1,4 +1,5 @@
 // main tools
+import { axiosInstance } from '@/_lib/axios-instance'
 import NextAuth from 'next-auth'
 
 // providers
@@ -7,7 +8,6 @@ import CustomProvider from 'next-auth/providers/credentials'
 // types
 import type { UserDataType } from '@/_types/models/user'
 import type { AuthOptions } from 'next-auth'
-import { axiosInstance } from '~/app/_lib/axios-instance'
 
 export const authOptions: AuthOptions = {
   pages: { signIn: '/iniciar-sesion' },

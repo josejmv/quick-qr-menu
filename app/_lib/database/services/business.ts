@@ -5,7 +5,7 @@ import dbConnect from '@/_lib/database/db-connect'
 import BusinessModel from '@/_lib/database/models/business'
 
 // types
-import type { BusinessDataType } from '~/app/_types/models/business'
+import type { BusinessDataType } from '@/_types/models/business'
 
 export const findBusinesses = async (ownerId: string | undefined) => {
   await dbConnect()

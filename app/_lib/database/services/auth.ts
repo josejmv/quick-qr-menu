@@ -2,7 +2,7 @@
 import UserModel from '@/_lib/database/models/user'
 
 // types
-import type { UserDataType } from '~/app/_types/models/user'
+import type { UserDataType } from '@/_types/models/user'
 
 export const LoginService = async (username: string | undefined) => {
   const user = await UserModel.findOne({ username: username })

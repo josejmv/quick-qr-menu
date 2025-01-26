@@ -1,5 +1,5 @@
 // main tools
-import { axiosInstance } from '~/app/_lib/axios-instance'
+import { axiosInstance } from '@/_lib/axios-instance'
 import { getServerSession } from 'next-auth'
 import { redirect } from 'next/navigation'
 import dynamic from 'next/dynamic'
