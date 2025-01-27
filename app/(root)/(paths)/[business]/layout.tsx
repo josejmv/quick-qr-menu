@@ -6,13 +6,9 @@ import { Sidebar } from './dashboard/_components/sidebar'
 import { Navbar } from './dashboard/_components/navbar'
 
 // types
-import type { FC, ReactNode } from 'react'
+import type { FC, PropsWithChildren } from 'react'
 
-type BusinessLayoutProps = {
-  children: ReactNode
-}
-
-const BusinessLayout: FC<BusinessLayoutProps> = ({ children }) => (
+const BusinessLayout: FC<PropsWithChildren> = ({ children }) => (
   <PushNotificationProvider>
     <div className='flex gap-4 min-h-screen'>
       <Sidebar />

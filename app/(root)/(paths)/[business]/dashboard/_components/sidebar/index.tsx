@@ -56,7 +56,7 @@ export const Sidebar: FC = () => {
           color='TERTIARY'
           className='mb-4'
           title='Cerrar sesión'
-          onClick={() => signOut()}
+          onClick={() => signOut({ callbackUrl: '/iniciar-sesion' })}
         >
           <PowerIcon className='w-6 h-6' />
         </Button>

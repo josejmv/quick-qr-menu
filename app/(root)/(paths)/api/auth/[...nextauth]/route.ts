@@ -33,6 +33,30 @@ export const authOptions: AuthOptions = {
         return { ...data }
       },
     }),
+
+    CustomProvider({
+      id: 'signup',
+      name: 'signup',
+      credentials: {
+        username: { type: 'text' },
+        password: { type: 'password' },
+        confirmPassword: { type: 'password' },
+      },
+      authorize: async (credentials) => {
+        const { data } = await axiosInstance.post<
+          UserDataType & { error: string }
+        >('/api/user/register', {
+          username: credentials?.username,
+          password: credentials?.password,
+        })
+
+        console.log(data)
+
+        if (!data._id) throw new Error(data.error)
+
+        return { ...data }
+      },
+    }),
   ],
 
   callbacks: {

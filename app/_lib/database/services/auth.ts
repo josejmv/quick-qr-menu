@@ -9,3 +9,10 @@ export const LoginService = async (username: string | undefined) => {
   if (!user) return undefined
   else return JSON.parse(JSON.stringify(user)) as UserDataType
 }
+
+export const SignUpService = async (user: Omit<UserDataType, '_id'>) => {
+  const userResponse = await UserModel.create(user).catch((error) => error)
+
+  if (userResponse.errors) return userResponse.errors
+  return JSON.parse(JSON.stringify(userResponse)) as UserDataType
+}

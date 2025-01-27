@@ -15,16 +15,22 @@ import Link from 'next/link'
 import type { SubmitHandler } from 'react-hook-form'
 import type { FC } from 'react'
 
-type Inputs = { username: string; password: string; submit: string }
+type Inputs = {
+  submit: string
+  username: string
+  password: string
+  confirmPassword: string
+}
 
-export const LoginForm: FC = () => {
-  const { register, handleSubmit, formState, setError } = useForm<Inputs>()
+export const SignUpForm: FC = () => {
+  const { register, handleSubmit, formState, getValues, setError } =
+    useForm<Inputs>()
 
   /**
    * @description function to handle the submit of the form
    */
   const submitControl: SubmitHandler<Inputs> = async (data) => {
-    const response = await signIn('login', { ...data, redirect: false })
+    const response = await signIn('signup', { ...data, redirect: false })
 
     if (!response?.ok) {
       const [key, message] = response?.error?.split(':') ?? []
@@ -51,7 +57,7 @@ export const LoginForm: FC = () => {
     >
       <div className='text-center pt-3 font-[family-name:var(--font-geist-mono)]'>
         <h2 className='text-lg md:text-xl xl:text-2xl'>
-          Inicia sesión y vive la
+          Crea tu cuenta y vive la
         </h2>
         <h1 className='text-xl md:text-2xl xl:text-3xl font-semibold'>
           experiencia <span className='text-primary'>QuickMenü</span>
@@ -78,19 +84,27 @@ export const LoginForm: FC = () => {
             labelClassName: 'text-primary-content-shade-darken-12',
           }}
         />
+        <InputText
+          type='password'
+          isError={!!formState.errors.confirmPassword}
+          {...register('confirmPassword', {
+            required: 'Este campo es requerido',
+            validate: (value) =>
+              value === getValues().password || 'Las contraseñas no coinciden',
+          })}
+          inputWrapperProps={{
+            label: 'Confirmar contraseña',
+            hintText: formState.errors.confirmPassword?.message,
+            labelClassName: 'text-primary-content-shade-darken-12',
+          }}
+        />
       </div>
 
       <div className='text-center my-5 flex flex-col gap-2'>
         <span>
-          ¿No puedes ingresar?{' '}
-          <Link className='text-primary' href='#'>
-            Recupera tu contraseña
-          </Link>
-        </span>
-        <span>
-          ¿Nuevo en QuickMenü?{' '}
-          <Link className='text-primary' href='/registro'>
-            Registrate
+          ¿Ya tienes una cuenta?{' '}
+          <Link className='text-primary' href='/iniciar-sesion'>
+            Inicia sesión
           </Link>
         </span>
       </div>
@@ -100,7 +114,7 @@ export const LoginForm: FC = () => {
         className='w-full font-bold'
         isError={!!formState.errors.username || !!formState.errors.password}
       >
-        Iniciar sesión
+        Crear cuenta
       </Button>
       {formState.errors.submit && (
         <div className='text-red-500 text-center mt-2'>
