@@ -11,7 +11,7 @@ import { infoTextVariants } from './utils'
 // types
 import type { InputTextAreaProps } from './types'
 
-const TextArea = forwardRef<HTMLTextAreaElement, InputTextAreaProps>(
+export const TextArea = forwardRef<HTMLTextAreaElement, InputTextAreaProps>(
   (
     {
       rows = 11,
@@ -81,5 +81,3 @@ const TextArea = forwardRef<HTMLTextAreaElement, InputTextAreaProps>(
   }
 )
 TextArea.displayName = 'TextArea'
-
-export default TextArea

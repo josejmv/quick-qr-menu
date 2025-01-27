@@ -1,9 +1,13 @@
 'use client'
+
 // main tools
+import { axiosInstance } from '@/_lib/axios-instance'
+import { getSession } from 'next-auth/react'
+import { redirect } from 'next/navigation'
 import { useForm } from 'react-hook-form'
 
 // components
-import TextArea from '@/_components/atoms/inputs/templates/text-area'
+import { TextArea } from '@/_components/atoms/inputs/templates/text-area'
 import { InputText } from '@/_components/atoms/inputs'
 import { Button } from '@/_components/atoms/button'
 
@@ -27,7 +31,16 @@ export const CreateBusinessForm: FC = () => {
    * @description function to handle the submit of the form
    */
   const submitControl: SubmitHandler<Inputs> = async (data) => {
-    console.log(data)
+    const session = await getSession()
+    const response = await axiosInstance.post('/api/business/create', {
+      ...data,
+      addresses: [],
+      owner: session?.user._id,
+      slug: data.name.toLowerCase().replace(/\s/g, '-'),
+    })
+
+    if (response.data._id) redirect(`/${response.data.slug}/dashboard`)
+    else console.log(response)
   }
 
   return (

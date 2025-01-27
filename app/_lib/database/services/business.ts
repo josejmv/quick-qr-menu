@@ -13,3 +13,13 @@ export const findBusinesses = async (ownerId: string | undefined) => {
   if (!business) return undefined
   else return JSON.parse(JSON.stringify(business)) as BusinessDataType[]
 }
+
+export const createBusiness = async (business: BusinessDataType) => {
+  await dbConnect()
+  const businessResponse = await BusinessModel.create(business).catch(
+    (error) => error
+  )
+
+  if (businessResponse.errors) return businessResponse.errors
+  else return JSON.parse(JSON.stringify(businessResponse)) as BusinessDataType[]
+}
