@@ -8,7 +8,7 @@ import dynamic from 'next/dynamic'
 import Image from 'next/image'
 
 // utils
-import { authOptions } from '@/(root)/(paths)/api/auth/[...nextauth]/route'
+import { authOptions } from '@/(root)/(paths)/api/auth/[...nextauth]'
 
 // types
 import type { NextPage } from 'next'

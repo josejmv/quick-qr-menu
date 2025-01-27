@@ -1,5 +1,5 @@
 // main tools
-import { authOptions } from '../api/auth/[...nextauth]/route'
+import { authOptions } from '@/(root)/(paths)/api/auth/[...nextauth]'
 import { getServerSession } from 'next-auth'
 
 // components
