@@ -49,8 +49,6 @@ export const authOptions: AuthOptions = {
           password: credentials?.password,
         })
 
-        console.log(data)
-
         if (!data._id) throw new Error(data.error)
 
         return { ...data }
