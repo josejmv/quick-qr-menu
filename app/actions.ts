@@ -37,7 +37,7 @@ export async function unsubscribeUser() {
 }
 
 /**
- * Send a push notification to the user
+ * Send a push notification to the user,
  */
 export async function sendNotification(message: string) {
   if (!subscription) throw new Error('No subscription available')
