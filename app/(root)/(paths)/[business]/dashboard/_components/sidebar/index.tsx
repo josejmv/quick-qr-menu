@@ -20,47 +20,49 @@ import {
 // types
 import type { FC } from 'react'
 
-export const Sidebar: FC = () => {
-  return (
-    <aside className='bg-white p-8 rounded-r-md drop-shadow-md flex flex-col justify-between'>
-      <div>
-        <Link title='Dashboard' href='/business-1/dashboard'>
-          <Button variant='GHOST' color='TERTIARY' className='mb-4'>
-            <HomeIcon className='w-6 h-6' />
-          </Button>
-        </Link>
-        <Link title='Usuarios' href='/business-1/dashboard'>
-          <Button variant='GHOST' color='TERTIARY' className='mb-4'>
-            <UserIcon className='w-6 h-6' />
-          </Button>
-        </Link>
-        <Link title='Grupos' href='/business-1/dashboard'>
-          <Button variant='GHOST' color='TERTIARY' className='mb-4'>
-            <UserGroupIcon className='w-6 h-6' />
-          </Button>
-        </Link>
-        <Link title='Rutinas' href='/business-1/dashboard'>
-          <Button variant='GHOST' color='TERTIARY' className='mb-4'>
-            <ShieldExclamationIcon className='w-6 h-6' />
-          </Button>
-        </Link>
-        <Link title='Recetas' href='/business-1/dashboard'>
-          <Button variant='GHOST' color='TERTIARY' className='mb-4'>
-            <DocumentTextIcon className='w-6 h-6' />
-          </Button>
-        </Link>
-      </div>
-      <div>
-        <Button
-          variant='GHOST'
-          color='TERTIARY'
-          className='mb-4'
-          title='Cerrar sesión'
-          onClick={() => signOut({ callbackUrl: '/iniciar-sesion' })}
-        >
-          <PowerIcon className='w-6 h-6' />
-        </Button>
-      </div>
-    </aside>
-  )
+type SidebarProps = {
+  slug: string
 }
+
+export const Sidebar: FC<SidebarProps> = ({ slug }) => (
+  <aside className='bg-white p-8 rounded-r-md drop-shadow-md flex flex-col justify-between'>
+    <div>
+      <Link title='Dashboard' href={`/${slug}/dashboard`}>
+        <Button variant='GHOST' color='TERTIARY' className='mb-4'>
+          <HomeIcon className='w-6 h-6' />
+        </Button>
+      </Link>
+      <Link title='Usuarios' href={`/${slug}/usuarios`}>
+        <Button variant='GHOST' color='TERTIARY' className='mb-4'>
+          <UserIcon className='w-6 h-6' />
+        </Button>
+      </Link>
+      <Link title='Grupos' href={`/${slug}/dashboard`}>
+        <Button variant='GHOST' color='TERTIARY' className='mb-4'>
+          <UserGroupIcon className='w-6 h-6' />
+        </Button>
+      </Link>
+      <Link title='Rutinas' href={`/${slug}/dashboard`}>
+        <Button variant='GHOST' color='TERTIARY' className='mb-4'>
+          <ShieldExclamationIcon className='w-6 h-6' />
+        </Button>
+      </Link>
+      <Link title='Recetas' href={`/${slug}/dashboard`}>
+        <Button variant='GHOST' color='TERTIARY' className='mb-4'>
+          <DocumentTextIcon className='w-6 h-6' />
+        </Button>
+      </Link>
+    </div>
+    <div>
+      <Button
+        variant='GHOST'
+        color='TERTIARY'
+        className='mb-4'
+        title='Cerrar sesión'
+        onClick={() => signOut({ callbackUrl: '/iniciar-sesion' })}
+      >
+        <PowerIcon className='w-6 h-6' />
+      </Button>
+    </div>
+  </aside>
+)

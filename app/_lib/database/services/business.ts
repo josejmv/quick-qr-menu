@@ -7,6 +7,13 @@ import BusinessModel from '@/_lib/database/models/business'
 // types
 import type { BusinessDataType } from '@/_types/models/business'
 
+export const findBusinessBySlug = async (slug: string) => {
+  await dbConnect()
+  const business = await BusinessModel.findOne({ slug })
+  if (!business) return undefined
+  else return JSON.parse(JSON.stringify(business)) as BusinessDataType
+}
+
 export const findBusinesses = async (ownerId: string | undefined) => {
   await dbConnect()
   const business = await BusinessModel.find({ owner: ownerId })
