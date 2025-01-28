@@ -5,10 +5,12 @@ import { DialogTitle, Description } from '@headlessui/react'
 import { Button } from '@/_components/atoms/button'
 
 // types
+import type { BusinessDataType } from '@/_types/models/business'
 import type { FC } from 'react'
 
 type CreateGroupProps = {
   onClose: () => void
+  business: BusinessDataType
 }
 
 export const CreateGroup: FC<CreateGroupProps> = ({ onClose }) => {

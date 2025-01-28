@@ -11,9 +11,14 @@ import { Card } from '../../../../../../_components/molecules/card'
 import { actions, createCases } from './utils'
 
 // types
-import type { FC, PropsWithChildren } from 'react'
+import type { BusinessDataType } from '@/_types/models/business'
+import type { FC } from 'react'
 
-export const QuickActions: FC<PropsWithChildren> = () => {
+interface QuickActionsProps {
+  business: BusinessDataType
+}
+
+export const QuickActions: FC<QuickActionsProps> = ({ business }) => {
   const [showModal, setShowModal] = useState('')
 
   const CreateComponent = useMemo(
@@ -40,7 +45,7 @@ export const QuickActions: FC<PropsWithChildren> = () => {
       </section>
 
       <Dialog open={showModal !== ''} onClose={handleCloseModal}>
-        <CreateComponent onClose={handleCloseModal} />
+        <CreateComponent business={business} onClose={handleCloseModal} />
       </Dialog>
     </>
   )

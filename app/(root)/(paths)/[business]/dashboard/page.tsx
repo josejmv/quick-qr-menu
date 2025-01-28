@@ -26,7 +26,7 @@ const BusinessPage: NextPage<BusinessPageProps> = async ({ params }) => {
   return (
     <main className='flex flex-col gap-5'>
       <FinishBusinessSetup business={business.data} />
-      <QuickActions />
+      <QuickActions business={business.data} />
     </main>
   )
 }

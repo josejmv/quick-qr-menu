@@ -5,10 +5,12 @@ import { DialogTitle, Description } from '@headlessui/react'
 import { Button } from '@/_components/atoms/button'
 
 // types
+import type { BusinessDataType } from '@/_types/models/business'
 import type { FC } from 'react'
 
 type CreateRoutineProps = {
   onClose: () => void
+  business: BusinessDataType
 }
 
 export const CreateRoutine: FC<CreateRoutineProps> = ({ onClose }) => {
