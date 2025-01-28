@@ -30,3 +30,18 @@ export const createBusiness = async (business: BusinessDataType) => {
   if (businessResponse.errors) return businessResponse.errors
   else return JSON.parse(JSON.stringify(businessResponse)) as BusinessDataType[]
 }
+
+export const updateBusiness = async (body: {
+  businessId: string
+  userId: string
+}) => {
+  await dbConnect()
+  const businessResponse = await BusinessModel.findByIdAndUpdate(
+    body.businessId,
+    { $push: { employees: body.userId } },
+    { new: true }
+  ).catch((error) => error)
+
+  if (businessResponse.errors) return businessResponse.errors
+  else return JSON.parse(JSON.stringify(businessResponse)) as BusinessDataType[]
+}

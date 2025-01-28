@@ -15,8 +15,8 @@ import type { CardProps } from '@/_components/molecules/card/types'
 export const actions: CardProps[] = [
   {
     type: 'USER',
-    label: 'Usuarios',
     Icon: UserPlusIcon,
+    label: 'Añadir usuario',
     action: 'Registrar usuario',
     description:
       'Agrega un nuevo usuario de forma rápida con solo unos simples pasos',

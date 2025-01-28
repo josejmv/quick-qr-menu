@@ -13,7 +13,7 @@ type FinishBusinessSetupProps = {
 export const FinishBusinessSetup: FC<FinishBusinessSetupProps> = async ({
   business,
 }) => {
-  if (business.addresses.length !== 0 || business.employees.length !== 0)
+  if (business.addresses.length !== 0 && business.employees.length !== 0)
     return null
 
   return (

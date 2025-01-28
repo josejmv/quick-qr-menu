@@ -44,7 +44,11 @@ export const QuickActions: FC<QuickActionsProps> = ({ business }) => {
         </article>
       </section>
 
-      <Dialog open={showModal !== ''} onClose={handleCloseModal}>
+      <Dialog
+        panelClassName='max-w-screen-sm'
+        open={showModal !== ''}
+        onClose={handleCloseModal}
+      >
         <CreateComponent business={business} onClose={handleCloseModal} />
       </Dialog>
     </>
