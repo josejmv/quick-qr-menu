@@ -4,42 +4,45 @@ import dynamic from 'next/dynamic'
 // icons
 import {
   UserPlusIcon,
+  BookOpenIcon,
   UserGroupIcon,
-  DocumentTextIcon,
-  ShieldExclamationIcon,
+  SquaresPlusIcon,
 } from '@heroicons/react/24/solid'
 
 // types
-import type { CardProps } from './card/types'
+import type { CardProps } from '@/_components/molecules/card/types'
 
-export const actions: Omit<CardProps, 'onClick'>[] = [
+export const actions: CardProps[] = [
   {
     type: 'USER',
     label: 'Usuarios',
     Icon: UserPlusIcon,
     action: 'Registrar usuario',
-    description: 'Agrega un nuevo usuario',
+    description:
+      'Agrega un nuevo usuario de forma rápida con solo unos simples pasos',
   },
   {
     type: 'GROUP',
     label: 'Grupos',
     Icon: UserGroupIcon,
     action: 'Crear grupo',
-    description: 'Crea un nuevo grupo de usuarios',
+    description:
+      'Crea un nuevo grupo de usuarios para organizarlos por cada sede o área',
   },
   {
-    type: 'ROUTINE',
-    label: 'Rutinas',
-    action: 'Crear rutina',
-    Icon: ShieldExclamationIcon,
-    description: 'Crea una nueva rutina de ejercicios',
+    type: 'TABLES',
+    label: 'Mesas',
+    Icon: SquaresPlusIcon,
+    action: 'Registrar mesa',
+    description:
+      'Agrega una nueva mesa para tu restaurante y comienza a atender',
   },
   {
-    type: 'RECIPE',
-    label: 'Recetas',
-    action: 'Crear receta',
-    Icon: DocumentTextIcon,
-    description: 'Crea una nueva receta de comida',
+    type: 'MENU',
+    label: 'Menú',
+    Icon: BookOpenIcon,
+    action: 'Agregar plato',
+    description: 'Agrega un nuevo plato a tu menú de forma rápida y sencilla',
   },
 ]
 

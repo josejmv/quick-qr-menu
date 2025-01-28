@@ -5,7 +5,7 @@ import { useMemo, useState } from 'react'
 
 // components
 import { Dialog } from '@/_components/atoms/dialog'
-import { Card } from './card'
+import { Card } from '../../../../../../_components/molecules/card'
 
 // utils
 import { actions, createCases } from './utils'
@@ -33,7 +33,7 @@ export const QuickActions: FC<PropsWithChildren> = () => {
             <Card
               {...action}
               key={action.label}
-              onClick={() => setShowModal(action.type)}
+              onClick={() => setShowModal(action.type as string)}
             />
           ))}
         </article>
