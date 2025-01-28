@@ -10,6 +10,7 @@ import { useForm } from 'react-hook-form'
 import { TextArea } from '@/_components/atoms/inputs/templates/text-area'
 import { InputText } from '@/_components/atoms/inputs'
 import { Button } from '@/_components/atoms/button'
+import Link from 'next/link'
 
 // types
 import type { BusinessAdressDataType } from '@/_types/models/business'
@@ -50,7 +51,7 @@ export const CreateBusinessForm: FC = () => {
     >
       <div className='text-center pt-3 font-[family-name:var(--font-geist-mono)]'>
         <h1 className='text-xl md:text-2xl xl:text-3xl font-semibold'>
-          Crea tu primer negocio
+          Crea tu negocio
         </h1>
       </div>
 
@@ -79,11 +80,16 @@ export const CreateBusinessForm: FC = () => {
 
       <Button
         type='submit'
-        className='w-full font-bold'
+        className='w-full font-bold mb-3'
         isError={!!formState.errors.name || !!formState.errors.description}
       >
         Crear negocio
       </Button>
+      <Link href='/mis-negocios'>
+        <Button variant='GHOST' className='w-full font-bold'>
+          Ir a mis negocios
+        </Button>
+      </Link>
       {formState.errors.submit && (
         <div className='text-red-500 text-center mt-2'>
           {formState.errors.submit.message}

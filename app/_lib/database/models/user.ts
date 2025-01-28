@@ -33,6 +33,10 @@ const UserSchema = new mongoose.Schema<UserDataType>({
     required: [true, 'Por favor ingresa una contraseña'],
     minlength: [6, 'La contraseña debe tener al menos 6 caracteres'],
   },
+  business: {
+    ref: 'Business',
+    type: mongoose.Schema.Types.ObjectId,
+  },
   picture: { type: String, default: 'no-photo.jpg' },
   role: { type: String, default: 'owner', enum: ['owner', 'employee'] },
 })

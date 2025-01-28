@@ -7,7 +7,8 @@ import dbConnect from '@/_lib/database/db-connect'
 export async function POST(req: Request) {
   await dbConnect()
   const body = await req.json()
-  const businesses = await findBusinessBySlug(body.slug)
+  const business = await findBusinessBySlug(body.slug)
 
-  return Response.json(businesses)
+  if (business) return Response.json(business)
+  else return Response.json({ error: 'Business not found' })
 }

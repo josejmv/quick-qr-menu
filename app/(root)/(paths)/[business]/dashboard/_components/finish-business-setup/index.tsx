@@ -1,6 +1,3 @@
-// main tools
-import { axiosInstance } from '@/_lib/axios-instance'
-
 // components
 import { UserGroupIcon, MapPinIcon } from '@heroicons/react/24/solid'
 import { Card } from '@/_components/molecules/card'
@@ -10,23 +7,13 @@ import type { BusinessDataType } from '@/_types/models/business'
 import type { FC } from 'react'
 
 type FinishBusinessSetupProps = {
-  slug: string
+  business: BusinessDataType
 }
 
 export const FinishBusinessSetup: FC<FinishBusinessSetupProps> = async ({
-  slug,
+  business,
 }) => {
-  const business = await axiosInstance.post<BusinessDataType>(
-    `/api/business/get-by-slug`,
-    {
-      slug,
-    }
-  )
-
-  if (
-    business.data.addresses.length !== 0 ||
-    business.data.employees.length !== 0
-  )
+  if (business.addresses.length !== 0 || business.employees.length !== 0)
     return null
 
   return (
@@ -38,21 +25,21 @@ export const FinishBusinessSetup: FC<FinishBusinessSetupProps> = async ({
       </p>
       <br />
       <article className='grid grid-cols-2 gap-8'>
-        {business.data.addresses.length === 0 && (
+        {business.addresses.length === 0 && (
           <Card
             label='Dirección'
             Icon={MapPinIcon}
             action='Agregar dirección'
-            href={`/${business.data.slug}/dashboard/sedes`}
+            href={`/${business.slug}/dashboard/sedes`}
             description='Si tu negocio tiene una o más sedes, agrégalas para que tus clientes puedan encontrarte'
           />
         )}
-        {business.data.employees.length === 0 && (
+        {business.employees.length === 0 && (
           <Card
             label='Empleados'
             Icon={UserGroupIcon}
             action='Agregar empleado'
-            href={`/${business.data.slug}/dashboard/empleados`}
+            href={`/${business.slug}/dashboard/empleados`}
             description='Agrega empleados que te ayudaran a gestionar tu negocio y atender a tus clientes'
           />
         )}
