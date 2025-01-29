@@ -26,12 +26,19 @@ export const QuickActions: FC<QuickActionsProps> = ({ business }) => {
     [showModal]
   )
 
+  /**
+   * Closes the modal
+   */
   const handleCloseModal = () => setShowModal('')
 
   return (
     <>
       <section className='bg-white p-4 rounded-2xl drop-shadow-md'>
         <h2 className='text-2xl font-bold'>Acciones rápidas</h2>
+        <p>
+          Aquí podrás crear y gestionar rápidamente los elementos más comunes de
+          tu negocio.
+        </p>
         <br />
         <article className='grid grid-cols-4 gap-2'>
           {actions.map((action) => (

@@ -32,7 +32,7 @@ export const Sidebar: FC<SidebarProps> = ({ slug }) => (
           <HomeIcon className='w-6 h-6' />
         </Button>
       </Link>
-      <Link title='Usuarios' href={`/${slug}/usuarios`}>
+      <Link title='Empleados' href={`/${slug}/dashboard/empleados`}>
         <Button variant='GHOST' color='TERTIARY' className='mb-4'>
           <UserIcon className='w-6 h-6' />
         </Button>
