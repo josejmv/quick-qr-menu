@@ -71,7 +71,7 @@ export const CreateUser: FC<CreateUserProps> = ({ onClose, business }) => {
         Crear usuario
       </DialogTitle>
       <Description className='text-center text-sm'>
-        Agrega un nuevo usuario de forma rápida para que te ayude en tu negocio
+        Agrega un nuevo usuario para que te ayude en tu negocio
         <br />
         El usuario formará parte del equipo de &quot;
         <span className='font-bold text-primary'>{business.name}</span>

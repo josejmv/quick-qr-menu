@@ -20,7 +20,8 @@ export const CreateDish: FC<CreateDishProps> = ({ onClose }) => {
         Crear receta
       </DialogTitle>
       <Description className='text-center text-sm'>
-        Crea una nueva receta para tu menú de forma rápida y sencilla
+        Crea una nueva receta la cual será visible para tus clientes en el menú
+        digital
       </Description>
 
       {/* <div> ADD FORM HERE </div> */}

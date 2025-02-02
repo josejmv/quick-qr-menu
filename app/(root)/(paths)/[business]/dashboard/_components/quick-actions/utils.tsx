@@ -17,8 +17,8 @@ export const actions: CardProps[] = [
       'Agrega un nuevo usuario de forma rápida con solo unos simples pasos',
   },
   {
-    type: 'MENU',
-    label: 'Menú',
+    type: 'DISH',
+    label: 'Platos',
     Icon: BookOpenIcon,
     actionLabel: 'Agregar plato',
     description: 'Agrega un nuevo plato a tu menú de forma rápida y sencilla',
@@ -38,5 +38,5 @@ const importCreateDishComponent = dynamic(
 
 export const createCases = {
   USER: importCreateUserComponent,
-  MENU: importCreateDishComponent,
+  DISH: importCreateDishComponent,
 }
