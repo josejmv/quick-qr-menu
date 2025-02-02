@@ -14,3 +14,13 @@ export const createUser = async (user: UserDataType) => {
   if (userResponse.errors) return userResponse.errors
   else return JSON.parse(JSON.stringify(userResponse)) as UserDataType[]
 }
+
+export const getUsersByBusinessId = async (businessId: string) => {
+  await dbConnect()
+  const usersResponse = await UserModel.find({ business: businessId }).catch(
+    (error) => error
+  )
+
+  if (usersResponse.errors) return usersResponse.errors
+  else return JSON.parse(JSON.stringify(usersResponse)) as UserDataType[]
+}

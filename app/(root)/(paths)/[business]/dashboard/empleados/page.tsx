@@ -2,6 +2,9 @@
 import { axiosInstance } from '@/_lib/axios-instance'
 import { redirect } from 'next/navigation'
 
+// components
+import { UsersTable } from './_components/users-table'
+
 // types
 import type { BusinessDataType } from '@/_types/models/business'
 import type { NextPage } from 'next'
@@ -19,6 +22,10 @@ const EmployeesPage: NextPage<EmployeesPageProps> = async ({ params }) => {
   )
   if (!business.data._id) redirect('/crear-negocio')
 
+  const employees = await axiosInstance.post(`/api/user/get-employees`, {
+    businessId: business.data._id,
+  })
+
   return (
     <main className='flex flex-col gap-5'>
       <section className='bg-white p-4 rounded-2xl drop-shadow-md'>
@@ -26,6 +33,10 @@ const EmployeesPage: NextPage<EmployeesPageProps> = async ({ params }) => {
         <p>
           En esta sección podrás ver y gestionar a los empleados de tu negocio.
         </p>
+
+        <div className='mt-4'>
+          <UsersTable data={employees.data} />
+        </div>
       </section>
     </main>
   )
