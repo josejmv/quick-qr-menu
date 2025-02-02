@@ -16,7 +16,7 @@ export const LoginService = async (username: string | undefined) => {
   else return JSON.parse(JSON.stringify(user)) as UserDataType
 }
 
-export const SignUpService = async (user: Omit<UserDataType, '_id'>) => {
+export const SignUpService = async (user: UserDataType) => {
   const userResponse = await UserModel.create(user).catch((error) => error)
 
   if (userResponse.errors) return userResponse.errors

@@ -35,28 +35,11 @@ export const CreateUser: FC<CreateUserProps> = ({ onClose, business }) => {
   const submitControl: SubmitHandler<Inputs> = async (data) => {
     const user = await axiosInstance.post<UserDataType & { error?: string }>(
       '/api/user/create',
-      {
-        name: data.name,
-        role: 'employee',
-        email: data.email,
-        business: business._id,
-      }
+      { name: data.name, email: data.email, business: business._id }
     )
 
-    if (user.data._id) {
-      const response = await axiosInstance.post<BusinessDataType>(
-        '/api/business/assign-user',
-        { businessId: business._id, userId: user.data._id }
-      )
-
-      if (response.data._id) onClose()
-      else {
-        setError('submit', {
-          message: 'Error al asignar el usuario al negocio',
-        })
-        console.error(response)
-      }
-    } else {
+    if (user.data._id) onClose()
+    else {
       const [key, message] = user?.data.error?.split(':') ?? []
 
       setError((key as keyof Inputs) ?? 'submit', {

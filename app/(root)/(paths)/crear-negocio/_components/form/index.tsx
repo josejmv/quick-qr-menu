@@ -13,7 +13,6 @@ import { Button } from '@/_components/atoms/button'
 import Link from 'next/link'
 
 // types
-import type { BusinessAdressDataType } from '@/_types/models/business'
 import type { SubmitHandler } from 'react-hook-form'
 import type { FC } from 'react'
 
@@ -22,7 +21,6 @@ type Inputs = {
   slug: string
   submit: string
   description: string
-  addresses: BusinessAdressDataType[]
 }
 
 export const CreateBusinessForm: FC = () => {
@@ -35,7 +33,6 @@ export const CreateBusinessForm: FC = () => {
     const session = await getSession()
     const response = await axiosInstance.post('/api/business/create', {
       ...data,
-      addresses: [],
       owner: session?.user._id,
       slug: data.name.toLowerCase().replace(/\s/g, '-'),
     })

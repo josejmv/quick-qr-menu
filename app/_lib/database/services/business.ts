@@ -33,12 +33,12 @@ export const createBusiness = async (business: BusinessDataType) => {
 
 export const updateBusiness = async (body: {
   businessId: string
-  userId: string
+  data: BusinessDataType
 }) => {
   await dbConnect()
   const businessResponse = await BusinessModel.findByIdAndUpdate(
     body.businessId,
-    { $push: { employees: body.userId } },
+    body.data,
     { new: true }
   ).catch((error) => error)
 

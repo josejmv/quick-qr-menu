@@ -30,10 +30,6 @@ const UserSchema = new mongoose.Schema<UserDataType>({
   password: {
     type: String,
     minlength: [6, 'La contraseña debe tener al menos 6 caracteres'],
-    match: [
-      /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{6,}$/,
-      'La contraseña debe tener al menos una letra mayúscula, una minúscula y un número',
-    ],
   },
   business: {
     ref: 'Business',
@@ -45,7 +41,7 @@ const UserSchema = new mongoose.Schema<UserDataType>({
     enum: ['active', 'inactive', 'pending', 'delete'],
   },
   picture: { type: String, default: 'no-photo.jpg' },
-  role: { type: String, default: 'owner', enum: ['owner', 'employee'] },
+  role: { type: String, default: 'employee', enum: ['owner', 'employee'] },
 })
 
 export default mongoose.models.User ||

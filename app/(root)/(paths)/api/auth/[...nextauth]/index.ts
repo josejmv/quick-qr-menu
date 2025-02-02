@@ -45,6 +45,8 @@ export const authOptions: AuthOptions = {
         const { data } = await axiosInstance.post<
           UserDataType & { error: string }
         >('/api/user/register', {
+          role: 'owner',
+          status: 'active',
           username: credentials?.username,
           password: credentials?.password,
         })

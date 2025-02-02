@@ -13,9 +13,6 @@ type FinishBusinessSetupProps = {
 export const FinishBusinessSetup: FC<FinishBusinessSetupProps> = async ({
   business,
 }) => {
-  if (business.addresses.length !== 0 && business.employees.length !== 0)
-    return null
-
   return (
     <section className='bg-white p-4 rounded-2xl drop-shadow-md'>
       <h2 className='text-2xl font-bold'>Termina de configurar tu negocio</h2>
@@ -25,24 +22,20 @@ export const FinishBusinessSetup: FC<FinishBusinessSetupProps> = async ({
       </p>
       <br />
       <article className='grid grid-cols-2 gap-8'>
-        {business.employees.length === 0 && (
-          <Card
-            Icon={UserPlusIcon}
-            label='Gestiona a tus empleados'
-            actionLabel='Ve y gestiona tus empleados'
-            href={`/${business.slug}/dashboard/empleados`}
-            description='Agrega empleados que te ayudaran a gestionar tu negocio y atender a tus clientes'
-          />
-        )}
-        {business.addresses.length === 0 && (
-          <Card
-            Icon={BookOpenIcon}
-            label='Gestiona tu menú'
-            actionLabel='Ve y gestiona tu menú'
-            href={`/${business.slug}/dashboard/menu`}
-            description='Agrega platos a tu menú para que tus clientes puedan verlos y ordenarlos'
-          />
-        )}
+        <Card
+          Icon={UserPlusIcon}
+          label='Gestiona a tus empleados'
+          actionLabel='Ve y gestiona tus empleados'
+          href={`/${business.slug}/dashboard/empleados`}
+          description='Agrega empleados que te ayudaran a gestionar tu negocio y atender a tus clientes'
+        />
+        <Card
+          Icon={BookOpenIcon}
+          label='Gestiona tu menú'
+          actionLabel='Ve y gestiona tu menú'
+          href={`/${business.slug}/dashboard/menu`}
+          description='Agrega platos a tu menú para que tus clientes puedan verlos y ordenarlos'
+        />
       </article>
     </section>
   )

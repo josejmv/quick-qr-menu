@@ -1,7 +1,6 @@
 // main tools
 import { axiosInstance } from '@/_lib/axios-instance'
 import { getServerSession } from 'next-auth'
-import { redirect } from 'next/navigation'
 
 // utils
 import { authOptions } from '@/(root)/(paths)/api/auth/[...nextauth]'
@@ -21,8 +20,6 @@ const MyBusinessesPage: NextPage = async () => {
     `/api/business/get-all`,
     { ownerId: session?.user._id }
   )
-  if (!businesses.data.some((business) => business._id))
-    redirect('/crear-negocio')
 
   return (
     <section className='bg-white p-8 rounded-2xl drop-shadow-md'>
