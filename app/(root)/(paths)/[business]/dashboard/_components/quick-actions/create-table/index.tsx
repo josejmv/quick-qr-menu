@@ -8,20 +8,19 @@ import { Button } from '@/_components/atoms/button'
 import type { BusinessDataType } from '@/_types/models/business'
 import type { FC } from 'react'
 
-type CreateRoutineProps = {
+type CreateTableProps = {
   onClose: () => void
   business: BusinessDataType
 }
 
-export const CreateRoutine: FC<CreateRoutineProps> = ({ onClose }) => {
+export const CreateTable: FC<CreateTableProps> = ({ onClose }) => {
   return (
     <div>
       <DialogTitle className='text-xl text-center font-bold'>
-        Crear rutina
+        Crear mesa
       </DialogTitle>
       <Description className='text-center text-sm'>
-        Crear una receta te permitirá gestionar su rutina de ejercicios y
-        entrenamiento.
+        Registra una nueva mesa para tu restaurante y comienza a atender
       </Description>
 
       {/* <div> ADD FORM HERE </div> */}

@@ -59,7 +59,7 @@ const importCreateRecipeComponent = dynamic(
   { loading: () => <p>CARGANDO</p> }
 )
 const importCreateRoutineComponent = dynamic(
-  () => import('./create-routine').then((mod) => mod.CreateRoutine),
+  () => import('./create-table').then((mod) => mod.CreateTable),
   { loading: () => <p>CARGANDO</p> }
 )
 

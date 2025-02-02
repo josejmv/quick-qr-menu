@@ -37,17 +37,17 @@ export const Sidebar: FC<SidebarProps> = ({ slug }) => (
           <UserIcon className='w-6 h-6' />
         </Button>
       </Link>
-      <Link title='Grupos' href={`/${slug}/dashboard`}>
+      <Link title='Grupos' href={`/${slug}/dashboard/grupos`}>
         <Button variant='GHOST' color='TERTIARY' className='mb-4'>
           <UserGroupIcon className='w-6 h-6' />
         </Button>
       </Link>
-      <Link title='Rutinas' href={`/${slug}/dashboard`}>
+      <Link title='Rutinas' href={`/${slug}/dashboard/mesas`}>
         <Button variant='GHOST' color='TERTIARY' className='mb-4'>
           <ShieldExclamationIcon className='w-6 h-6' />
         </Button>
       </Link>
-      <Link title='Recetas' href={`/${slug}/dashboard`}>
+      <Link title='Recetas' href={`/${slug}/dashboard/menu`}>
         <Button variant='GHOST' color='TERTIARY' className='mb-4'>
           <DocumentTextIcon className='w-6 h-6' />
         </Button>

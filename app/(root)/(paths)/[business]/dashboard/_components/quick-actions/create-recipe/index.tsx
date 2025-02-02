@@ -20,8 +20,7 @@ export const CreateRecipe: FC<CreateRecipeProps> = ({ onClose }) => {
         Crear receta
       </DialogTitle>
       <Description className='text-center text-sm'>
-        Crear un grupo te permitirá gestionar su rutina de ejercicios y
-        entrenamiento.
+        Crea una nueva receta para tu menú de forma rápida y sencilla
       </Description>
 
       {/* <div> ADD FORM HERE </div> */}
