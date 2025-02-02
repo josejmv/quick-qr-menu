@@ -8,12 +8,12 @@ import { Button } from '@/_components/atoms/button'
 import type { BusinessDataType } from '@/_types/models/business'
 import type { FC } from 'react'
 
-type CreateRecipeProps = {
+type CreateDishProps = {
   onClose: () => void
   business: BusinessDataType
 }
 
-export const CreateRecipe: FC<CreateRecipeProps> = ({ onClose }) => {
+export const CreateDish: FC<CreateDishProps> = ({ onClose }) => {
   return (
     <div>
       <DialogTitle className='text-xl text-center font-bold'>

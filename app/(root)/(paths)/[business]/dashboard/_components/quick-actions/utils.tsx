@@ -26,15 +26,17 @@ export const actions: CardProps[] = [
 ]
 
 const importCreateUserComponent = dynamic(
-  () => import('./create-user').then((mod) => mod.CreateUser),
+  () =>
+    import('@/_components/molecules/create-user').then((mod) => mod.CreateUser),
   { loading: () => <p>CARGANDO</p> }
 )
-const importCreateRecipeComponent = dynamic(
-  () => import('./create-recipe').then((mod) => mod.CreateRecipe),
+const importCreateDishComponent = dynamic(
+  () =>
+    import('@/_components/molecules/create-dish').then((mod) => mod.CreateDish),
   { loading: () => <p>CARGANDO</p> }
 )
 
 export const createCases = {
   USER: importCreateUserComponent,
-  RECIPE: importCreateRecipeComponent,
+  MENU: importCreateDishComponent,
 }

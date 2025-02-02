@@ -4,7 +4,7 @@
 import { useState } from 'react'
 
 // components
-import { CreateUser } from '@/(root)/(paths)/[business]/dashboard/_components/quick-actions/create-user'
+import { CreateUser } from '@/_components/molecules/create-user'
 import { Dialog } from '@/_components/atoms/dialog'
 import { Button } from '@/_components/atoms/button'
 
