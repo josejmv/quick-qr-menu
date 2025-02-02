@@ -1,5 +1,5 @@
 // components
-import { UserGroupIcon, MapPinIcon } from '@heroicons/react/24/solid'
+import { UserPlusIcon, BookOpenIcon } from '@heroicons/react/24/solid'
 import { Card } from '@/_components/molecules/card'
 
 // types
@@ -25,22 +25,22 @@ export const FinishBusinessSetup: FC<FinishBusinessSetupProps> = async ({
       </p>
       <br />
       <article className='grid grid-cols-2 gap-8'>
-        {business.addresses.length === 0 && (
-          <Card
-            label='Dirección'
-            Icon={MapPinIcon}
-            actionLabel='Agregar dirección'
-            href={`/${business.slug}/dashboard/sedes`}
-            description='Si tu negocio tiene una o más sedes, agrégalas para que tus clientes puedan encontrarte'
-          />
-        )}
         {business.employees.length === 0 && (
           <Card
-            label='Empleados'
-            Icon={UserGroupIcon}
-            actionLabel='Agregar empleado'
+            Icon={UserPlusIcon}
+            label='Gestiona a tus empleados'
+            actionLabel='Ve y gestiona tus empleados'
             href={`/${business.slug}/dashboard/empleados`}
             description='Agrega empleados que te ayudaran a gestionar tu negocio y atender a tus clientes'
+          />
+        )}
+        {business.addresses.length === 0 && (
+          <Card
+            Icon={BookOpenIcon}
+            label='Gestiona tu menú'
+            actionLabel='Ve y gestiona tu menú'
+            href={`/${business.slug}/dashboard/menu`}
+            description='Agrega platos a tu menú para que tus clientes puedan verlos y ordenarlos'
           />
         )}
       </article>
