@@ -21,24 +21,7 @@ const BusinessSchema = new mongoose.Schema<BusinessDataType>({
     required: [true, 'Por favor provea una descripción'],
     maxlength: [350, 'La descripción no puede tener más de 350 caracteres'],
   },
-  addresses: [
-    {
-      city: {
-        type: String,
-        required: [true, 'Por favor provea una ciudad'],
-        maxlength: [50, 'La ciudad no puede tener más de 50 caracteres'],
-      },
-      address: {
-        type: String,
-        required: [true, 'Por favor provea una dirección'],
-        maxlength: [100, 'La dirección no puede tener más de 100 caracteres'],
-      },
-    },
-  ],
   owner: { ref: 'User', required: true, type: mongoose.Schema.Types.ObjectId },
-  employees: [
-    { ref: 'User', required: true, type: mongoose.Schema.Types.ObjectId },
-  ],
 })
 
 export default mongoose.models.Business ||

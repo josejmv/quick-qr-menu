@@ -10,9 +10,6 @@ const MenuSchema = new mongoose.Schema<MenuDataType>({
     required: true,
     type: mongoose.Schema.Types.ObjectId,
   },
-  dishes: [
-    { ref: 'Dish', required: true, type: mongoose.Schema.Types.ObjectId },
-  ],
 })
 
 export default mongoose.models.Menu ||

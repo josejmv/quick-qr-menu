@@ -39,6 +39,11 @@ const UserSchema = new mongoose.Schema<UserDataType>({
     ref: 'Business',
     type: mongoose.Schema.Types.ObjectId,
   },
+  status: {
+    type: String,
+    default: 'pending',
+    enum: ['active', 'inactive', 'pending', 'delete'],
+  },
   picture: { type: String, default: 'no-photo.jpg' },
   role: { type: String, default: 'owner', enum: ['owner', 'employee'] },
 })

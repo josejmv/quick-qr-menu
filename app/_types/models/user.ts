@@ -10,4 +10,5 @@ export type UserDataType = {
   password: string
   business: BusinessDataType
   role: 'owner' | 'employee'
+  status: 'active' | 'inactive' | 'pending' | 'delete'
 }

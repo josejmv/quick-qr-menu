@@ -7,13 +7,4 @@ export type BusinessDataType = {
   slug: string
   description: string
   owner: UserDataType
-  employees: UserDataType[]
-  addresses: BusinessAdressDataType[]
-}
-
-export type BusinessAdressDataType = {
-  _id: string
-  city: string
-  address: string
-  business: string
 }
