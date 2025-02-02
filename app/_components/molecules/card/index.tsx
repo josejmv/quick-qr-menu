@@ -28,7 +28,7 @@ export const Card: FC<CardProps> = (props) => (
               className='w-full'
               value={props.type}
             >
-              <PlusIcon className='size-5 me-2' /> {props.action}
+              <PlusIcon className='size-5 me-2' /> {props.actionLabel}
             </Button>
           </Link>
         ) : (
@@ -39,7 +39,7 @@ export const Card: FC<CardProps> = (props) => (
             value={props.type}
             onClick={props.onClick}
           >
-            <PlusIcon className='size-5 me-2' /> {props.action}
+            <PlusIcon className='size-5 me-2' /> {props.actionLabel}
           </Button>
         )}
       </div>

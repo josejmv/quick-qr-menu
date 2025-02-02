@@ -29,7 +29,7 @@ export const FinishBusinessSetup: FC<FinishBusinessSetupProps> = async ({
           <Card
             label='Dirección'
             Icon={MapPinIcon}
-            action='Agregar dirección'
+            actionLabel='Agregar dirección'
             href={`/${business.slug}/dashboard/sedes`}
             description='Si tu negocio tiene una o más sedes, agrégalas para que tus clientes puedan encontrarte'
           />
@@ -38,7 +38,7 @@ export const FinishBusinessSetup: FC<FinishBusinessSetupProps> = async ({
           <Card
             label='Empleados'
             Icon={UserGroupIcon}
-            action='Agregar empleado'
+            actionLabel='Agregar empleado'
             href={`/${business.slug}/dashboard/empleados`}
             description='Agrega empleados que te ayudaran a gestionar tu negocio y atender a tus clientes'
           />

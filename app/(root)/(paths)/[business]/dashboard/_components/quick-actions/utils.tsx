@@ -17,7 +17,7 @@ export const actions: CardProps[] = [
     type: 'USER',
     Icon: UserPlusIcon,
     label: 'Añadir usuario',
-    action: 'Registrar usuario',
+    actionLabel: 'Registrar usuario',
     description:
       'Agrega un nuevo usuario de forma rápida con solo unos simples pasos',
   },
@@ -25,7 +25,7 @@ export const actions: CardProps[] = [
     type: 'GROUP',
     label: 'Grupos',
     Icon: UserGroupIcon,
-    action: 'Crear grupo',
+    actionLabel: 'Crear grupo',
     description:
       'Crea un nuevo grupo de usuarios para organizarlos por cada sede o área',
   },
@@ -33,7 +33,7 @@ export const actions: CardProps[] = [
     type: 'TABLES',
     label: 'Mesas',
     Icon: SquaresPlusIcon,
-    action: 'Registrar mesa',
+    actionLabel: 'Registrar mesa',
     description:
       'Agrega una nueva mesa para tu restaurante y comienza a atender',
   },
@@ -41,7 +41,7 @@ export const actions: CardProps[] = [
     type: 'MENU',
     label: 'Menú',
     Icon: BookOpenIcon,
-    action: 'Agregar plato',
+    actionLabel: 'Agregar plato',
     description: 'Agrega un nuevo plato a tu menú de forma rápida y sencilla',
   },
 ]
