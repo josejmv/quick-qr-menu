@@ -21,7 +21,6 @@ const UserSchema = new mongoose.Schema<UserDataType>({
   username: {
     type: String,
     unique: true,
-    required: [true, 'Por favor ingresa un nombre de usuario'],
     maxlength: [40, 'El nombre de usuario no puede tener más de 40 caracteres'],
     match: [
       /^[a-zA-Z0-9]+$/,
@@ -30,8 +29,11 @@ const UserSchema = new mongoose.Schema<UserDataType>({
   },
   password: {
     type: String,
-    required: [true, 'Por favor ingresa una contraseña'],
     minlength: [6, 'La contraseña debe tener al menos 6 caracteres'],
+    match: [
+      /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{6,}$/,
+      'La contraseña debe tener al menos una letra mayúscula, una minúscula y un número',
+    ],
   },
   business: {
     ref: 'Business',

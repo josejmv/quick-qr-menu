@@ -5,6 +5,7 @@ import { axiosInstance } from '@/_lib/axios-instance'
 import { signIn, getSession } from 'next-auth/react'
 import { redirect } from 'next/navigation'
 import { useForm } from 'react-hook-form'
+import { useState } from 'react'
 
 // components
 import { InputText } from '@/_components/atoms/inputs'
@@ -23,6 +24,7 @@ type Inputs = {
 }
 
 export const SignUpForm: FC = () => {
+  const [loading, setLoading] = useState(false)
   const { register, handleSubmit, formState, getValues, setError } =
     useForm<Inputs>()
 
@@ -30,6 +32,7 @@ export const SignUpForm: FC = () => {
    * @description function to handle the submit of the form
    */
   const submitControl: SubmitHandler<Inputs> = async (data) => {
+    setLoading(true)
     const response = await signIn('signup', { ...data, redirect: false })
 
     if (!response?.ok) {
@@ -48,6 +51,7 @@ export const SignUpForm: FC = () => {
         redirect('/crear-negocio')
       else redirect(`/${businesses.data[0].slug}/dashboard`)
     }
+    setLoading(false)
   }
 
   return (
@@ -111,6 +115,7 @@ export const SignUpForm: FC = () => {
 
       <Button
         type='submit'
+        loading={loading}
         className='w-full font-bold'
         isError={!!formState.errors.username || !!formState.errors.password}
       >

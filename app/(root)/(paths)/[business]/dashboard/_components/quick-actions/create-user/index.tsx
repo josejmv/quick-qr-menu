@@ -21,27 +21,25 @@ type CreateUserProps = {
 }
 
 type Inputs = {
+  name: string
+  email: string
   submit: string
-  username: string
-  password: string
-  confirmPassword: string
 }
 
 export const CreateUser: FC<CreateUserProps> = ({ onClose, business }) => {
-  const { register, handleSubmit, formState, getValues, setError } =
-    useForm<Inputs>()
+  const { register, handleSubmit, formState, setError } = useForm<Inputs>()
 
   /**
    * @description function to handle the submit of the form
    */
   const submitControl: SubmitHandler<Inputs> = async (data) => {
-    const user = await axiosInstance.post<UserDataType & { error: string }>(
+    const user = await axiosInstance.post<UserDataType & { error?: string }>(
       '/api/user/create',
       {
+        name: data.name,
         role: 'employee',
+        email: data.email,
         business: business._id,
-        username: data.username,
-        password: data.password,
       }
     )
 
@@ -56,7 +54,7 @@ export const CreateUser: FC<CreateUserProps> = ({ onClose, business }) => {
         setError('submit', {
           message: 'Error al asignar el usuario al negocio',
         })
-        console.log(response)
+        console.error(response)
       }
     } else {
       const [key, message] = user?.data.error?.split(':') ?? []
@@ -85,33 +83,19 @@ export const CreateUser: FC<CreateUserProps> = ({ onClose, business }) => {
         className='flex flex-col gap-5 my-8'
       >
         <InputText
-          isError={!!formState.errors.username}
-          {...register('username', { required: 'Este campo es requerido' })}
+          isError={!!formState.errors.name}
+          {...register('name', { required: 'Este campo es requerido' })}
           inputWrapperProps={{
-            label: 'Nombre de usuario',
-            hintText: formState.errors.username?.message,
+            label: 'Nombre completo',
+            hintText: formState.errors.name?.message,
           }}
         />
         <InputText
-          type='password'
-          isError={!!formState.errors.password}
-          {...register('password', { required: 'Este campo es requerido' })}
+          isError={!!formState.errors.email}
+          {...register('email', { required: 'Este campo es requerido' })}
           inputWrapperProps={{
-            label: 'Contraseña',
-            hintText: formState.errors.password?.message,
-          }}
-        />
-        <InputText
-          type='password'
-          isError={!!formState.errors.confirmPassword}
-          {...register('confirmPassword', {
-            required: 'Este campo es requerido',
-            validate: (value) =>
-              value === getValues().password || 'Las contraseñas no coinciden',
-          })}
-          inputWrapperProps={{
-            label: 'Confirmar contraseña',
-            hintText: formState.errors.confirmPassword?.message,
+            label: 'Correo electrónico',
+            hintText: formState.errors.email?.message,
           }}
         />
 
