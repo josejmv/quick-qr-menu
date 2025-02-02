@@ -23,7 +23,7 @@ const LoginPage: NextPage = async () => {
 
     if (!businesses.data || businesses.data.length === 0)
       redirect('/crear-negocio')
-    else redirect(`/${businesses.data[0].slug}/dashboard`)
+    else redirect('/mis-negocios')
   }
 
   const LoginForm = dynamic(

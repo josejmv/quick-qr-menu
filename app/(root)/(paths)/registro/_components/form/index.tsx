@@ -1,10 +1,9 @@
 'use client'
 
 // main tools
-import { axiosInstance } from '@/_lib/axios-instance'
-import { signIn, getSession } from 'next-auth/react'
 import { redirect } from 'next/navigation'
 import { useForm } from 'react-hook-form'
+import { signIn } from 'next-auth/react'
 import { useState } from 'react'
 
 // components
@@ -41,16 +40,8 @@ export const SignUpForm: FC = () => {
       setError((key as keyof Inputs) ?? 'submit', {
         message: message ?? 'Error inesperado',
       })
-    } else {
-      const session = await getSession()
-      const businesses = await axiosInstance.post('/api/business/get-all', {
-        ownerId: session?.user._id,
-      })
+    } else redirect('/crear-negocio')
 
-      if (!businesses.data || businesses.data.length === 0)
-        redirect('/crear-negocio')
-      else redirect(`/${businesses.data[0].slug}/dashboard`)
-    }
     setLoading(false)
   }
 
