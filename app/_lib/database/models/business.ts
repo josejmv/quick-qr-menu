@@ -21,6 +21,8 @@ const BusinessSchema = new mongoose.Schema<BusinessDataType>({
     required: [true, 'Por favor provea una descripción'],
     maxlength: [350, 'La descripción no puede tener más de 350 caracteres'],
   },
+  menu: { ref: 'Menu', type: mongoose.Schema.Types.ObjectId },
+  employees: [{ ref: 'User', type: mongoose.Schema.Types.ObjectId }],
   owner: { ref: 'User', required: true, type: mongoose.Schema.Types.ObjectId },
 })
 

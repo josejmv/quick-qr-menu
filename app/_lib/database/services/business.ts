@@ -5,7 +5,10 @@ import dbConnect from '@/_lib/database/db-connect'
 import BusinessModel from '@/_lib/database/models/business'
 
 // types
-import type { BusinessDataType } from '@/_types/models/business'
+import type {
+  BusinessDataType,
+  UpdateBusinessDataType,
+} from '@/_types/models/business'
 
 export const findBusinessBySlug = async (slug: string) => {
   await dbConnect()
@@ -33,7 +36,7 @@ export const createBusiness = async (business: BusinessDataType) => {
 
 export const updateBusiness = async (body: {
   businessId: string
-  data: BusinessDataType
+  data: UpdateBusinessDataType
 }) => {
   await dbConnect()
   const businessResponse = await BusinessModel.findByIdAndUpdate(
