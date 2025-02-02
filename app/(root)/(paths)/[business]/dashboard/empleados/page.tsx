@@ -35,7 +35,7 @@ const EmployeesPage: NextPage<EmployeesPageProps> = async ({ params }) => {
         </p>
 
         <div className='mt-4'>
-          <UsersTable data={employees.data} />
+          <UsersTable business={business.data} employees={employees.data} />
         </div>
       </section>
     </main>

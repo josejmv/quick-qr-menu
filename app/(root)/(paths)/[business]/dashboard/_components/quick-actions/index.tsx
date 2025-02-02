@@ -52,9 +52,9 @@ export const QuickActions: FC<QuickActionsProps> = ({ business }) => {
       </section>
 
       <Dialog
-        panelClassName='max-w-screen-sm'
         open={showModal !== ''}
         onClose={handleCloseModal}
+        panelClassName='max-w-screen-sm'
       >
         <CreateComponent business={business} onClose={handleCloseModal} />
       </Dialog>
