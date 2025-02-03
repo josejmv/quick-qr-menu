@@ -15,6 +15,7 @@ export type BusinessDataType = {
 export type UpdateBusinessDataType = {
   name?: string
   slug?: string
+  menu?: string
   description?: string
   $push?: { employees?: UserDataType }
 }

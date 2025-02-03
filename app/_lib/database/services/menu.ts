@@ -5,7 +5,7 @@ import dbConnect from '@/_lib/database/db-connect'
 import MenuModel from '@/_lib/database/models/menu'
 
 // types
-import type { MenuDataType } from '@/_types/models/menu'
+import type { MenuDataType, UpdateMenuDataType } from '@/_types/models/menu'
 
 export const generateMenu = async (businessId: string) => {
   await dbConnect()
@@ -29,4 +29,19 @@ export const getMenuByBusinessId = async (businessId: string) => {
   else if (!menuResponse) return undefined
 
   return JSON.parse(JSON.stringify(menuResponse)) as MenuDataType
+}
+
+export const updateMenu = async (body: {
+  menuId: string
+  data: UpdateMenuDataType
+}) => {
+  await dbConnect()
+  const businessResponse = await MenuModel.findByIdAndUpdate(
+    body.menuId,
+    body.data,
+    { new: true }
+  ).catch((error) => error)
+
+  if (businessResponse.errors) return businessResponse.errors
+  else return JSON.parse(JSON.stringify(businessResponse)) as MenuDataType[]
 }

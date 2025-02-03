@@ -24,6 +24,8 @@ export const FinishBusinessSetup: FC<FinishBusinessSetupProps> = async ({
     }
   )
 
+  if (business.employees.length > 0 && menu.data.dishes.length > 0) return null
+
   return (
     <section className='bg-white p-4 rounded-2xl drop-shadow-md'>
       <h2 className='text-2xl font-bold'>Termina de configurar tu negocio</h2>

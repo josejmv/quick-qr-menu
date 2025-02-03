@@ -25,7 +25,6 @@ const DishSchema = new mongoose.Schema<DishDataType>({
     required: [true, 'Por favor provea un precio actual'],
   },
   category: {
-    required: true,
     ref: 'DishCategory',
     type: mongoose.Schema.Types.ObjectId,
   },

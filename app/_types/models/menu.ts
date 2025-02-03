@@ -7,3 +7,7 @@ export type MenuDataType = {
   dishes: DishDataType[]
   business: BusinessDataType
 }
+
+export type UpdateMenuDataType = {
+  dishes: DishDataType[]
+}

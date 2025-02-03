@@ -7,8 +7,7 @@ import { redirect } from 'next/navigation'
 import { useForm } from 'react-hook-form'
 
 // components
-import { TextArea } from '@/_components/atoms/inputs/templates/text-area'
-import { InputText } from '@/_components/atoms/inputs'
+import { InputText, TextArea } from '@/_components/atoms/inputs'
 import { Button } from '@/_components/atoms/button'
 import Link from 'next/link'
 
