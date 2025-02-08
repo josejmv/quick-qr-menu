@@ -1,5 +1,5 @@
 // types
-import type { BusinessDataType } from './business'
+import type { Schema } from 'mongoose'
 
 export type UserDataType = {
   _id: string
@@ -8,7 +8,7 @@ export type UserDataType = {
   picture: string
   username: string
   password: string
-  business: BusinessDataType
   role: 'owner' | 'employee'
+  business: Schema.Types.ObjectId
   status: 'active' | 'inactive' | 'pending' | 'delete'
 }

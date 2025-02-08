@@ -15,3 +15,14 @@ export const createDish = async (data: DishDataType) => {
   if (dishResponse.errors) return dishResponse.errors
   else return JSON.parse(JSON.stringify(dishResponse)) as DishDataType
 }
+
+export const getDishesByMenuId = async (id: string) => {
+  await dbConnect()
+
+  const dishResponse = await DishModel.find({ menu: id }).catch(
+    (error) => error
+  )
+
+  if (dishResponse.errors) return dishResponse.errors
+  else return JSON.parse(JSON.stringify(dishResponse)) as DishDataType
+}

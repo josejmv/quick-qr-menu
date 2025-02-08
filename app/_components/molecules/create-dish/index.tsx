@@ -33,7 +33,7 @@ type Inputs = {
 
 export const CreateDish: FC<CreateDishProps> = ({ onClose, business }) => {
   const { register, handleSubmit, getValues, watch, formState, setError } =
-    useForm<Inputs>()
+    useForm<Inputs>({ defaultValues: { visible: true } })
   watch('visible')
 
   /**
@@ -42,7 +42,7 @@ export const CreateDish: FC<CreateDishProps> = ({ onClose, business }) => {
   const submitControl: SubmitHandler<Inputs> = async (data) => {
     const dish = await axiosInstance.post<DishDataType & { error?: string }>(
       '/api/dish/create',
-      { business: business._id, ...data, menu: business.menu }
+      { ...data, menu: business.menu }
     )
 
     if (dish.data._id) onClose()

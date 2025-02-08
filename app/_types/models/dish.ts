@@ -1,14 +1,13 @@
 // types
-import type { DishCategoryDataType } from './dish-category'
-import type { MenuDataType } from './menu'
+import type { Schema } from 'mongoose'
 
 export type DishDataType = {
   _id: string
   name: string
   visible: boolean
   basePrice: number
-  menu: MenuDataType
   description: string
   currentPrice: number
-  category: DishCategoryDataType
+  menu: Schema.Types.ObjectId
+  category: Schema.Types.ObjectId
 }

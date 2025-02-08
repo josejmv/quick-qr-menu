@@ -1,13 +1,12 @@
 // types
-import type { BusinessDataType } from './business'
-import type { DishDataType } from './dish'
+import type { Schema } from 'mongoose'
 
 export type MenuDataType = {
   _id: string
-  dishes: DishDataType[]
-  business: BusinessDataType
+  business: Schema.Types.ObjectId
+  dishes: Schema.Types.ObjectId[]
 }
 
 export type UpdateMenuDataType = {
-  dishes: DishDataType[]
+  dishes: Schema.Types.ObjectId[]
 }
