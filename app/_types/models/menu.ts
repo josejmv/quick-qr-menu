@@ -8,5 +8,5 @@ export type MenuDataType = {
 }
 
 export type UpdateMenuDataType = {
-  dishes: Schema.Types.ObjectId[]
+  $push?: { dishes?: Schema.Types.ObjectId[] }
 }

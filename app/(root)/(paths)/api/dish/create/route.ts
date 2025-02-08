@@ -6,7 +6,7 @@ export async function POST(req: Request) {
   const body = await req.json()
   const dish = await createDish(body)
 
-  await updateMenu({ menuId: body.menu, data: { dishes: dish._id } })
+  await updateMenu({ menuId: body.menu, data: { $push: { dishes: dish._id } } })
 
   return Response.json(dish)
 }
