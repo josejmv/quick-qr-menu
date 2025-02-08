@@ -11,23 +11,19 @@ const DishSchema = new mongoose.Schema<DishDataType>({
     maxlength: [50, 'El nombre no puede tener más de 50 caracteres'],
   },
   visible: { type: Boolean, default: true },
-  basePrice: {
-    type: Number,
-    required: [true, 'Por favor provea un precio base'],
-  },
   description: {
     type: String,
     required: [true, 'Por favor provea una descripción'],
     maxlength: [350, 'La descripción no puede tener más de 350 caracteres'],
   },
-  currentPrice: {
-    type: Number,
-    required: [true, 'Por favor provea un precio actual'],
-  },
-  category: {
-    ref: 'DishCategory',
-    type: mongoose.Schema.Types.ObjectId,
-  },
+  price: [
+    {
+      basePrice: { type: Number },
+      discountPrice: { type: Number },
+      currency: { type: String, enum: ['COP', 'USD'] },
+    },
+  ],
+  category: { ref: 'DishCategory', type: mongoose.Schema.Types.ObjectId },
   menu: { ref: 'Menu', required: true, type: mongoose.Schema.Types.ObjectId },
 })
 

@@ -5,9 +5,8 @@ export type DishDataType = {
   _id: string
   name: string
   visible: boolean
-  basePrice: number
   description: string
-  currentPrice: number
   menu: Schema.Types.ObjectId
   category: Schema.Types.ObjectId
+  price: [{ basePrice: number; discountPrice: number; currency: 'COP' | 'USD' }]
 }

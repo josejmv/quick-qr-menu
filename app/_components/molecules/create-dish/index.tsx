@@ -8,6 +8,7 @@ import { useForm } from 'react-hook-form'
 import { Checkbox, InputText, TextArea } from '@/_components/atoms/inputs'
 import { DialogTitle, Description } from '@headlessui/react'
 import { Button } from '@/_components/atoms/button'
+import { Fragment } from 'react'
 
 // types
 import type { DishCategoryDataType } from '@/_types/models/dish-category'
@@ -25,16 +26,26 @@ type Inputs = {
   name: string
   submit: string
   visible: boolean
-  basePrice: number
   description: string
-  currentPrice: number
   category: DishCategoryDataType
+  price: { basePrice: number; discountPrice: number; currency: 'COP' | 'USD' }[]
 }
 
 export const CreateDish: FC<CreateDishProps> = ({ onClose, business }) => {
-  const { register, handleSubmit, getValues, watch, formState, setError } =
-    useForm<Inputs>({ defaultValues: { visible: true } })
-  watch('visible')
+  const {
+    watch,
+    register,
+    setError,
+    setValue,
+    getValues,
+    formState,
+    handleSubmit,
+  } = useForm<Inputs>({ defaultValues: { visible: true, price: [] } })
+
+  /**
+   * @description watch for changes in the visible and price fields
+   */
+  watch(['visible', 'price'])
 
   /**
    * @description function to handle the submit of the form
@@ -77,30 +88,92 @@ export const CreateDish: FC<CreateDishProps> = ({ onClose, business }) => {
             hintText: formState.errors.name?.message,
           }}
         />
-        <div className='flex items-start gap-3'>
-          <InputText
-            type='number'
-            isError={!!formState.errors.basePrice}
-            {...register('basePrice', { required: 'Este campo es requerido' })}
-            inputWrapperProps={{
-              label: 'Precio base',
-              hintText: formState.errors.basePrice?.message,
-            }}
-          />
-          <InputText
-            type='number'
-            isError={!!formState.errors.currentPrice}
-            {...register('currentPrice', {
-              required: 'Este campo es requerido',
-            })}
-            inputWrapperProps={{
-              label: 'Precio actual',
-              hintText: formState.errors.currentPrice?.message,
-              infoText:
-                'Este precio indicará si hay algun descuento o promoción',
-            }}
-          />
-        </div>
+        {getValues('price').map((price, index) => (
+          <Fragment key={index}>
+            <div className='flex items-start gap-3'>
+              <InputText
+                type='number'
+                isError={!!formState.errors.price?.[index]?.basePrice}
+                onChange={(e) =>
+                  setValue(`price.${index}.basePrice`, parseInt(e.target.value))
+                }
+                inputWrapperProps={{
+                  label: 'Precio base',
+                  hintText: formState.errors.price?.[index]?.basePrice?.message,
+                }}
+              />
+              <InputText
+                key={index}
+                type='number'
+                isError={!!formState.errors.price?.[index]?.discountPrice}
+                onChange={(e) =>
+                  setValue(
+                    `price.${index}.discountPrice`,
+                    parseInt(e.target.value)
+                  )
+                }
+                inputWrapperProps={{
+                  label: 'Precio con descuento',
+                  hintText:
+                    formState.errors.price?.[index]?.discountPrice?.message,
+                }}
+              />
+            </div>
+            <div className='flex gap-4'>
+              <div className='flex gap-2 items-center'>
+                <Checkbox
+                  checked={price.currency === 'COP'}
+                  disabled={getValues('price').some(
+                    (price) => price.currency === 'COP'
+                  )}
+                  onChange={(e) =>
+                    setValue(
+                      `price.${index}.currency`,
+                      e.target.checked ? 'COP' : 'USD'
+                    )
+                  }
+                />
+                <label>COP</label>
+              </div>
+              <div className='flex gap-2 items-center'>
+                <Checkbox
+                  checked={price.currency === 'USD'}
+                  disabled={getValues('price').some(
+                    (price) => price.currency === 'USD'
+                  )}
+                  onChange={(e) =>
+                    setValue(
+                      `price.${index}.currency`,
+                      e.target.checked ? 'USD' : 'COP'
+                    )
+                  }
+                />
+                <label>USD</label>
+              </div>
+            </div>
+          </Fragment>
+        ))}
+        {getValues('price').length < 2 && (
+          <Button
+            type='button'
+            onClick={() =>
+              setValue('price', [
+                ...getValues('price'),
+                {
+                  basePrice: 0,
+                  discountPrice: 0,
+                  currency: getValues('price').some(
+                    (price) => price.currency === 'COP'
+                  )
+                    ? 'USD'
+                    : 'COP',
+                },
+              ])
+            }
+          >
+            Añadir precio
+          </Button>
+        )}
 
         <TextArea
           rows={3}

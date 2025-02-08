@@ -27,7 +27,7 @@ export const DishesTable: FC<DishesTableProps> = ({ dishes, business }) => {
         <thead>
           <tr>
             <th className='border border-gray-300 p-2'>Nombre</th>
-            <th className='border border-gray-300 p-2'>Precio actual</th>
+            <th className='border border-gray-300 p-2'>Precio</th>
             <th className='border border-gray-300 p-2'>Acciones</th>
           </tr>
         </thead>
@@ -37,7 +37,13 @@ export const DishesTable: FC<DishesTableProps> = ({ dishes, business }) => {
               <tr key={dish._id} className='border-b border-gray-300'>
                 <td className='border border-gray-300 p-2'>{dish.name}</td>
                 <td className='border border-gray-300 p-2'>
-                  {dish.currentPrice}
+                  <ul>
+                    {dish.price.map((price) => (
+                      <li key={`${dish._id}-${price.currency}`}>
+                        {price.basePrice} {price.currency}
+                      </li>
+                    ))}
+                  </ul>
                 </td>
               </tr>
             ))
