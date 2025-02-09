@@ -13,15 +13,15 @@ import { userCrudCases } from './utils'
 
 // types
 import type { BusinessDataType } from '@/_types/models/business'
-import type { UserDataType } from '@/_types/models/user'
+import type { TableDataType } from '@/_types/models/table'
 import type { FC } from 'react'
 
-type UsersTableProps = {
-  employees: UserDataType[]
+type TablesTableProps = {
+  tables: TableDataType[]
   business: BusinessDataType
 }
 
-export const UsersTable: FC<UsersTableProps> = ({ employees, business }) => {
+export const TablesTable: FC<TablesTableProps> = ({ tables, business }) => {
   const [showModal, setShowModal] = useState('')
 
   const CrudComponent = useMemo(() => {
@@ -29,7 +29,7 @@ export const UsersTable: FC<UsersTableProps> = ({ employees, business }) => {
     return userCrudCases[useCase as keyof typeof userCrudCases] ?? (() => null)
   }, [showModal])
 
-  const dishId = useMemo(() => {
+  const tableId = useMemo(() => {
     const [_, id] = showModal.split('-')
     return id
   }, [showModal])
@@ -40,32 +40,39 @@ export const UsersTable: FC<UsersTableProps> = ({ employees, business }) => {
         <thead>
           <tr>
             <th className='border border-gray-300 p-2'>Nombre</th>
-            <th className='border border-gray-300 p-2'>Correo electrónico</th>
-            <th className='border border-gray-300 p-2'>Estatus</th>
+            <th className='border border-gray-300 p-2'>Código QR</th>
             <th className='border border-gray-300 p-2'>Acciones</th>
           </tr>
         </thead>
         <tbody>
-          {employees.length > 0 ? (
-            employees.map((employee) => (
+          {tables.length > 0 ? (
+            tables.map((table) => (
               <tr
-                key={employee._id}
+                key={table._id}
                 className='border-b border-gray-300 text-center'
               >
-                <td className='border border-gray-300 p-2'>{employee.name}</td>
-                <td className='border border-gray-300 p-2'>{employee.email}</td>
+                <td className='border border-gray-300 p-2'>{table.name}</td>
                 <td className='border border-gray-300 p-2'>
-                  {employee.status}
+                  {table.qrCode ? (
+                    <Button
+                      variant='GHOST'
+                      onClick={() => setShowModal(`VIEW_QR-${table._id}`)}
+                    >
+                      Ver QR
+                    </Button>
+                  ) : (
+                    'Sin QR generado'
+                  )}
                 </td>
                 <td className='border border-gray-300 p-2'>
                   <div className='flex justify-center gap-4'>
                     <PencilIcon
                       className='w-5 h-5 cursor-pointer'
-                      onClick={() => setShowModal(`EDIT-${employee._id}`)}
+                      onClick={() => setShowModal(`EDIT-${table._id}`)}
                     />
                     <TrashIcon
                       className='w-5 h-5 cursor-pointer'
-                      onClick={() => setShowModal(`DELETE-${employee._id}`)}
+                      onClick={() => setShowModal(`DELETE-${table._id}`)}
                     />
                   </div>
                 </td>
@@ -74,20 +81,20 @@ export const UsersTable: FC<UsersTableProps> = ({ employees, business }) => {
           ) : (
             <tr>
               <td
-                colSpan={4}
+                colSpan={3}
                 className='border border-gray-300 py-8 text-center'
               >
-                No hay usuarios registrados
+                No hay mesas registrados
               </td>
             </tr>
           )}
         </tbody>
         <tfoot>
           <tr>
-            <td colSpan={4} className='border border-gray-300 p-2'>
+            <td colSpan={3} className='border border-gray-300 p-2'>
               <div className='flex justify-end'>
                 <Button onClick={() => setShowModal('CREATE')}>
-                  Agregar empleado
+                  Agregar mesa
                 </Button>
               </div>
             </td>
@@ -102,7 +109,7 @@ export const UsersTable: FC<UsersTableProps> = ({ employees, business }) => {
         className={showModal === 'DELETE' ? '[&>div>div]:px-4' : ''}
       >
         <CrudComponent
-          id={dishId}
+          id={tableId}
           business={business}
           onClose={() => setShowModal('')}
         />

@@ -12,6 +12,7 @@ import {
   HomeIcon,
   UserIcon,
   PowerIcon,
+  Squares2X2Icon,
   DocumentTextIcon,
 } from '@heroicons/react/24/solid'
 
@@ -33,6 +34,11 @@ export const Sidebar: FC<SidebarProps> = ({ slug }) => (
       <Link title='Empleados' href={`/${slug}/dashboard/empleados`}>
         <Button variant='GHOST' color='TERTIARY' className='mb-4'>
           <UserIcon className='w-6 h-6' />
+        </Button>
+      </Link>
+      <Link title='Mesas' href={`/${slug}/dashboard/mesas`}>
+        <Button variant='GHOST' color='TERTIARY' className='mb-4'>
+          <Squares2X2Icon className='w-6 h-6' />
         </Button>
       </Link>
       <Link title='Recetas' href={`/${slug}/dashboard/menu`}>

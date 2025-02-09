@@ -2,10 +2,10 @@
 import type { Schema } from 'mongoose'
 
 export type BusinessDataType = {
+  _id: string
   name: string
   slug: string
   description: string
-  _id: Schema.Types.ObjectId
   menu: Schema.Types.ObjectId
   owner: Schema.Types.ObjectId
   tables: Schema.Types.ObjectId[]

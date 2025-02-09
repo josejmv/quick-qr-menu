@@ -14,3 +14,24 @@ export const createTable = async (table: TableDataType) => {
   if (tableResponse.errors) return tableResponse.errors
   else return JSON.parse(JSON.stringify(tableResponse)) as TableDataType
 }
+
+export const deleteTable = async (tableId: string) => {
+  await dbConnect()
+  const tableResponse = await TableModel.findByIdAndDelete(tableId).catch(
+    (error) => error
+  )
+
+  if (tableResponse.errors) return tableResponse.errors
+  else return JSON.parse(JSON.stringify(tableResponse)) as TableDataType
+}
+
+export const getTablesByBusinessId = async (id: string) => {
+  await dbConnect()
+
+  const tableResponse = await TableModel.find({ business: id }).catch(
+    (error) => error
+  )
+
+  if (tableResponse.errors) return tableResponse.errors
+  else return JSON.parse(JSON.stringify(tableResponse)) as TableDataType[]
+}
