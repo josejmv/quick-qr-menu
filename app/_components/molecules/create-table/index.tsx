@@ -22,12 +22,11 @@ type CreateUserProps = {
 
 type Inputs = {
   name: string
-  qrCode: string
   submit: string
 }
 
 export const CreateTable: FC<CreateUserProps> = ({ onClose, business }) => {
-  const { register, handleSubmit, formState, setError } = useForm<Inputs>()
+  const { register, setError, formState, handleSubmit } = useForm<Inputs>()
 
   /**
    * @description function to handle the submit of the form
@@ -35,7 +34,7 @@ export const CreateTable: FC<CreateUserProps> = ({ onClose, business }) => {
   const submitControl: SubmitHandler<Inputs> = async (data) => {
     const table = await axiosInstance.post<TableDataType & { error?: string }>(
       '/api/table/create',
-      { name: data.name, qrCode: data.qrCode, business: business._id }
+      { name: data.name, business: business._id }
     )
 
     if (table.data._id) onClose()
