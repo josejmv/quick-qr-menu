@@ -5,7 +5,6 @@ import mongoose from 'mongoose'
 import type { TableDataType } from '@/_types/models/table'
 
 const TableSchema = new mongoose.Schema<TableDataType>({
-  qrCode: { type: String },
   name: {
     type: String,
     required: [true, 'Por favor provea un nombre'],

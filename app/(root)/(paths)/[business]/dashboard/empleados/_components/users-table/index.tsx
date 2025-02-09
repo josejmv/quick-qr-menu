@@ -61,7 +61,7 @@ export const UsersTable: FC<UsersTableProps> = ({ employees, business }) => {
                   <div className='flex justify-center gap-4'>
                     <PencilIcon
                       className='w-5 h-5 cursor-pointer'
-                      onClick={() => setShowModal(`EDIT-${employee._id}`)}
+                      onClick={() => setShowModal(`UPDATE-${employee._id}`)}
                     />
                     <TrashIcon
                       className='w-5 h-5 cursor-pointer'

@@ -9,7 +9,7 @@ import { Dialog } from '@/_components/atoms/dialog'
 import { Button } from '@/_components/atoms/button'
 
 // utils
-import { userCrudCases } from './utils'
+import { tableCrudCases } from './utils'
 
 // types
 import type { BusinessDataType } from '@/_types/models/business'
@@ -26,7 +26,10 @@ export const TablesTable: FC<TablesTableProps> = ({ tables, business }) => {
 
   const CrudComponent = useMemo(() => {
     const [useCase] = showModal.split('-')
-    return userCrudCases[useCase as keyof typeof userCrudCases] ?? (() => null)
+
+    return (
+      tableCrudCases[useCase as keyof typeof tableCrudCases] ?? (() => null)
+    )
   }, [showModal])
 
   const tableId = useMemo(() => {
@@ -40,7 +43,7 @@ export const TablesTable: FC<TablesTableProps> = ({ tables, business }) => {
         <thead>
           <tr>
             <th className='border border-gray-300 p-2'>Nombre</th>
-            <th className='border border-gray-300 p-2'>Código QR</th>
+            <th className='border border-gray-300 p-2'>Ordenes tomadas</th>
             <th className='border border-gray-300 p-2'>Acciones</th>
           </tr>
         </thead>
@@ -53,22 +56,13 @@ export const TablesTable: FC<TablesTableProps> = ({ tables, business }) => {
               >
                 <td className='border border-gray-300 p-2'>{table.name}</td>
                 <td className='border border-gray-300 p-2'>
-                  {table.qrCode ? (
-                    <Button
-                      variant='GHOST'
-                      onClick={() => setShowModal(`VIEW_QR-${table._id}`)}
-                    >
-                      Ver QR
-                    </Button>
-                  ) : (
-                    'Sin QR generado'
-                  )}
+                  {table.orders.length}
                 </td>
                 <td className='border border-gray-300 p-2'>
                   <div className='flex justify-center gap-4'>
                     <PencilIcon
                       className='w-5 h-5 cursor-pointer'
-                      onClick={() => setShowModal(`EDIT-${table._id}`)}
+                      onClick={() => setShowModal(`UPDATE-${table._id}`)}
                     />
                     <TrashIcon
                       className='w-5 h-5 cursor-pointer'

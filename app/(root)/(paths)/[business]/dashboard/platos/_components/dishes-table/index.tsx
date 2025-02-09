@@ -69,7 +69,7 @@ export const DishesTable: FC<DishesTableProps> = ({ dishes, business }) => {
                   <div className='flex justify-center gap-4'>
                     <PencilIcon
                       className='w-5 h-5 cursor-pointer'
-                      onClick={() => setShowModal(`EDIT-${dish}`)}
+                      onClick={() => setShowModal(`UPDATE-${dish}`)}
                     />
                     <TrashIcon
                       className='w-5 h-5 cursor-pointer'

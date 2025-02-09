@@ -1,6 +1,3 @@
-// providers
-import { PushNotificationProvider } from '@/_contexts/notification/provider'
-
 // components
 import { Sidebar } from './dashboard/_components/sidebar'
 import { Navbar } from './dashboard/_components/navbar'
@@ -19,16 +16,14 @@ const BusinessLayout: FC<BusinessLayoutProps> = async ({
   const params = await props.params
 
   return (
-    <PushNotificationProvider>
-      <div className='flex gap-4 min-h-screen'>
-        <Sidebar slug={params.business} />
-        <div className='p-4 w-full'>
-          <Navbar slug={params.business} />
-          <br />
-          {children}
-        </div>
+    <div className='flex gap-4 min-h-screen'>
+      <Sidebar slug={params.business} />
+      <div className='p-4 w-full'>
+        <Navbar slug={params.business} />
+        <br />
+        {children}
       </div>
-    </PushNotificationProvider>
+    </div>
   )
 }
 

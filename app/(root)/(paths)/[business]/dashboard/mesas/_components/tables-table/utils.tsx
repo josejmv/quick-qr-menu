@@ -15,8 +15,16 @@ const importDeleteTableComponent = dynamic(
     ),
   { loading: () => <p>CARGANDO</p> }
 )
+const importUpdateTableComponent = dynamic(
+  () =>
+    import('@/_components/molecules/update-table').then(
+      (mod) => mod.UpdateTable
+    ),
+  { loading: () => <p>CARGANDO</p> }
+)
 
-export const userCrudCases = {
+export const tableCrudCases = {
   CREATE: importCreateTableComponent,
   DELETE: importDeleteTableComponent,
+  UPDATE: importUpdateTableComponent,
 }
