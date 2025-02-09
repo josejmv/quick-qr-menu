@@ -1,11 +1,7 @@
 // services
 import { SignUpService } from '@/_lib/database/services/auth'
 
-// database
-import dbConnect from '@/_lib/database/db-connect'
-
 export async function POST(req: Request) {
-  await dbConnect()
   const body = await req.json()
   const response = await SignUpService(body)
 
