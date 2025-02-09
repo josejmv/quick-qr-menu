@@ -13,7 +13,7 @@ import { authOptions } from '@/(root)/(paths)/api/auth/[...nextauth]'
 // types
 import type { NextPage } from 'next'
 
-const LoginPage: NextPage = async () => {
+const SignUpPage: NextPage = async () => {
   const session = await getServerSession(authOptions)
 
   if (session) {
@@ -48,4 +48,4 @@ const LoginPage: NextPage = async () => {
   )
 }
 
-export default LoginPage
+export default SignUpPage

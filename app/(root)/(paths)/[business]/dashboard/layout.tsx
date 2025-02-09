@@ -1,6 +1,6 @@
 // components
-import { Sidebar } from './dashboard/_components/sidebar'
-import { Navbar } from './dashboard/_components/navbar'
+import { Sidebar } from './_components/sidebar'
+import { Navbar } from './_components/navbar'
 
 // types
 import type { FC, PropsWithChildren } from 'react'
