@@ -63,9 +63,9 @@ export const FinishBusinessSetup: FC<FinishBusinessSetupProps> = async ({
         {menu.data.dishes.length === 0 && (
           <Card
             Icon={BookOpenIcon}
-            label='Gestiona tu menú'
-            actionLabel='Ve y gestiona tu menú'
-            href={`/${business.slug}/dashboard/menu`}
+            label='Gestiona tus platos'
+            actionLabel='Ve y gestiona tus platos'
+            href={`/${business.slug}/dashboard/platos`}
             description='Agrega platos a tu menú para que tus clientes puedan verlos y ordenarlos'
           />
         )}

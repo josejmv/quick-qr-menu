@@ -41,7 +41,7 @@ export const Sidebar: FC<SidebarProps> = ({ slug }) => (
           <Squares2X2Icon className='w-6 h-6' />
         </Button>
       </Link>
-      <Link title='Recetas' href={`/${slug}/dashboard/menu`}>
+      <Link title='Recetas' href={`/${slug}/dashboard/platos`}>
         <Button variant='GHOST' color='TERTIARY' className='mb-4'>
           <DocumentTextIcon className='w-6 h-6' />
         </Button>

@@ -9,11 +9,11 @@ import { DishesTable } from './_components/dishes-table'
 import type { BusinessDataType } from '@/_types/models/business'
 import type { NextPage } from 'next'
 
-type MenuPageProps = {
+type DishesPageProps = {
   params: Promise<{ business: string }>
 }
 
-const EmployeesPage: NextPage<MenuPageProps> = async ({ params }) => {
+const DishesPage: NextPage<DishesPageProps> = async ({ params }) => {
   const { business: slug } = await params
 
   const business = await axiosInstance.post<BusinessDataType>(
@@ -29,7 +29,7 @@ const EmployeesPage: NextPage<MenuPageProps> = async ({ params }) => {
   return (
     <main className='flex flex-col gap-5'>
       <section className='bg-white p-4 rounded-2xl drop-shadow-md'>
-        <h2 className='text-2xl font-bold'>Menú</h2>
+        <h2 className='text-2xl font-bold'>Platos</h2>
         <p>En esta sección podrás ver y gestionar los platos de tu menú.</p>
 
         <div className='mt-4'>
@@ -40,4 +40,4 @@ const EmployeesPage: NextPage<MenuPageProps> = async ({ params }) => {
   )
 }
 
-export default EmployeesPage
+export default DishesPage
