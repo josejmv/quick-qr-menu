@@ -41,7 +41,7 @@ export const DishesTable: FC<DishesTableProps> = ({ dishes, business }) => {
           <tr>
             <th className='border border-gray-300 p-2'>Nombre</th>
             <th className='border border-gray-300 p-2'>Precio</th>
-            <th className='border border-gray-300 p-2'>Visible</th>
+            <th className='border border-gray-300 p-2'>Visibilidad</th>
             <th className='border border-gray-300 p-2'>Acciones</th>
           </tr>
         </thead>
