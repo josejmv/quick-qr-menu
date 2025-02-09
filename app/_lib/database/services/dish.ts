@@ -16,6 +16,17 @@ export const createDish = async (data: DishDataType) => {
   else return JSON.parse(JSON.stringify(dishResponse)) as DishDataType
 }
 
+export const deleteDish = async (dishId: string) => {
+  await dbConnect()
+
+  const dishResponse = await DishModel.findByIdAndDelete(dishId).catch(
+    (error) => error
+  )
+
+  if (dishResponse.errors) return dishResponse.errors
+  else return JSON.parse(JSON.stringify(dishResponse)) as DishDataType
+}
+
 export const getDishesByMenuId = async (id: string) => {
   await dbConnect()
 

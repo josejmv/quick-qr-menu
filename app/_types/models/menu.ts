@@ -9,4 +9,5 @@ export type MenuDataType = {
 
 export type UpdateMenuDataType = {
   $push?: { dishes?: Schema.Types.ObjectId[] }
+  $pull?: { dishes?: Schema.Types.ObjectId[] }
 }

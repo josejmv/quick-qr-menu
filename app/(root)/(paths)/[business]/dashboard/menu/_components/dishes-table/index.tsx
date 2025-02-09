@@ -1,12 +1,15 @@
 'use client'
 
 // main tools
-import { useState } from 'react'
+import { useMemo, useState } from 'react'
 
 // components
-import { CreateDish } from '@/_components/molecules/create-dish'
+import { PencilIcon, TrashIcon } from '@heroicons/react/24/solid'
 import { Dialog } from '@/_components/atoms/dialog'
 import { Button } from '@/_components/atoms/button'
+
+// utils
+import { dishCrudCases } from './utils'
 
 // types
 import type { BusinessDataType } from '@/_types/models/business'
@@ -19,7 +22,16 @@ type DishesTableProps = {
 }
 
 export const DishesTable: FC<DishesTableProps> = ({ dishes, business }) => {
-  const [showModal, setShowModal] = useState(false)
+  const [showModal, setShowModal] = useState('')
+
+  const CrudComponent = useMemo(() => {
+    const [useCase] = showModal.split('-')
+    return dishCrudCases[useCase as keyof typeof dishCrudCases] ?? (() => null)
+  }, [showModal])
+  const dishId = useMemo(() => {
+    const [_, id] = showModal.split('-')
+    return id
+  }, [showModal])
 
   return (
     <>
@@ -28,13 +40,17 @@ export const DishesTable: FC<DishesTableProps> = ({ dishes, business }) => {
           <tr>
             <th className='border border-gray-300 p-2'>Nombre</th>
             <th className='border border-gray-300 p-2'>Precio</th>
+            <th className='border border-gray-300 p-2'>Visible</th>
             <th className='border border-gray-300 p-2'>Acciones</th>
           </tr>
         </thead>
         <tbody>
           {dishes.length > 0 ? (
             dishes.map((dish) => (
-              <tr key={dish._id} className='border-b border-gray-300'>
+              <tr
+                key={dish._id}
+                className='border-b border-gray-300 text-center'
+              >
                 <td className='border border-gray-300 p-2'>{dish.name}</td>
                 <td className='border border-gray-300 p-2'>
                   <ul>
@@ -45,12 +61,27 @@ export const DishesTable: FC<DishesTableProps> = ({ dishes, business }) => {
                     ))}
                   </ul>
                 </td>
+                <td className='border border-gray-300 p-2'>
+                  {dish.visible ? 'Visible' : 'Oculto'}
+                </td>
+                <td className='border border-gray-300 p-2'>
+                  <div className='flex justify-center gap-4'>
+                    <PencilIcon
+                      className='w-5 h-5 cursor-pointer'
+                      onClick={() => setShowModal(`EDIT-${dish}`)}
+                    />
+                    <TrashIcon
+                      className='w-5 h-5 cursor-pointer'
+                      onClick={() => setShowModal(`DELETE-${dish._id}`)}
+                    />
+                  </div>
+                </td>
               </tr>
             ))
           ) : (
             <tr>
               <td
-                colSpan={3}
+                colSpan={4}
                 className='border border-gray-300 py-8 text-center'
               >
                 No hay platos registrados
@@ -60,9 +91,9 @@ export const DishesTable: FC<DishesTableProps> = ({ dishes, business }) => {
         </tbody>
         <tfoot>
           <tr>
-            <td colSpan={3} className='border border-gray-300 p-2'>
+            <td colSpan={4} className='border border-gray-300 p-2'>
               <div className='flex justify-end'>
-                <Button onClick={() => setShowModal(true)}>
+                <Button onClick={() => setShowModal('CREATE')}>
                   Agregar plato
                 </Button>
               </div>
@@ -72,11 +103,16 @@ export const DishesTable: FC<DishesTableProps> = ({ dishes, business }) => {
       </table>
 
       <Dialog
-        open={showModal}
+        open={!!showModal}
+        onClose={() => setShowModal('')}
         panelClassName='max-w-screen-sm'
-        onClose={() => setShowModal(false)}
+        className={showModal === 'DELETE' ? '[&>div>div]:px-4' : ''}
       >
-        <CreateDish business={business} onClose={() => setShowModal(false)} />
+        <CrudComponent
+          id={dishId}
+          business={business}
+          onClose={() => setShowModal('')}
+        />
       </Dialog>
     </>
   )

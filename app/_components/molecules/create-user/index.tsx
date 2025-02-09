@@ -84,7 +84,7 @@ export const CreateUser: FC<CreateUserProps> = ({ onClose, business }) => {
 
         <div className='flex justify-end gap-4'>
           <Button type='submit'>Guardar</Button>
-          <Button variant='OUTLINE' color='TERTIARY' onClick={onClose}>
+          <Button variant='GHOST' color='TERTIARY' onClick={onClose}>
             Cancelar
           </Button>
         </div>
