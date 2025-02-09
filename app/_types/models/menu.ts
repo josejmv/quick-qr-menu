@@ -2,7 +2,7 @@
 import type { Schema } from 'mongoose'
 
 export type MenuDataType = {
-  _id: Schema.Types.ObjectId
+  _id: string
   business: Schema.Types.ObjectId
   dishes: Schema.Types.ObjectId[]
 }

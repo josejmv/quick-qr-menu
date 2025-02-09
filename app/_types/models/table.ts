@@ -2,9 +2,9 @@
 import type { Schema } from 'mongoose'
 
 export type TableDataType = {
+  _id: string
   name: string
   qrCode: string
-  _id: Schema.Types.ObjectId
   orders: Schema.Types.ObjectId[]
   business: Schema.Types.ObjectId
 }
