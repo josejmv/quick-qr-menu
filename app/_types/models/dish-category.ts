@@ -1,4 +1,7 @@
+// types
+import type { Schema } from 'mongoose'
+
 export type DishCategoryDataType = {
-  _id: string
   name: string
+  _id: Schema.Types.ObjectId
 }
