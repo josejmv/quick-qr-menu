@@ -2,7 +2,11 @@
 import dynamic from 'next/dynamic'
 
 // icons
-import { UserPlusIcon, BookOpenIcon } from '@heroicons/react/24/solid'
+import {
+  UserPlusIcon,
+  SquaresPlusIcon,
+  BookOpenIcon,
+} from '@heroicons/react/24/solid'
 
 // types
 import type { CardProps } from '@/_components/molecules/card/types'
@@ -15,6 +19,14 @@ export const actions: CardProps[] = [
     actionLabel: 'Registrar usuario',
     description:
       'Agrega un nuevo usuario de forma rápida con solo unos simples pasos',
+  },
+  {
+    type: 'TABLE',
+    label: 'Añadir mesa',
+    Icon: SquaresPlusIcon,
+    actionLabel: 'Agregar mesa',
+    description:
+      'Agrega una nueva mesa a tu negocio de forma rápida y sencilla',
   },
   {
     type: 'DISH',
@@ -35,8 +47,16 @@ const importCreateDishComponent = dynamic(
     import('@/_components/molecules/create-dish').then((mod) => mod.CreateDish),
   { loading: () => <p>CARGANDO</p> }
 )
+const importCreateTableComponent = dynamic(
+  () =>
+    import('@/_components/molecules/create-table').then(
+      (mod) => mod.CreateTable
+    ),
+  { loading: () => <p>CARGANDO</p> }
+)
 
 export const createCases = {
   USER: importCreateUserComponent,
   DISH: importCreateDishComponent,
+  TABLE: importCreateTableComponent,
 }

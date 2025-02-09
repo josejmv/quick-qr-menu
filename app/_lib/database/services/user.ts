@@ -12,7 +12,7 @@ export const createUser = async (user: UserDataType) => {
   const userResponse = await UserModel.create(user).catch((error) => error)
 
   if (userResponse.errors) return userResponse.errors
-  else return JSON.parse(JSON.stringify(userResponse)) as UserDataType[]
+  else return JSON.parse(JSON.stringify(userResponse)) as UserDataType
 }
 
 export const deleteUser = async (userId: string) => {

@@ -8,6 +8,7 @@ export type BusinessDataType = {
   _id: Schema.Types.ObjectId
   menu: Schema.Types.ObjectId
   owner: Schema.Types.ObjectId
+  tables: Schema.Types.ObjectId[]
   employees: Schema.Types.ObjectId[]
 }
 
@@ -16,6 +17,6 @@ export type UpdateBusinessDataType = {
   slug?: string
   description?: string
   menu?: Schema.Types.ObjectId
-  $push?: { employees?: Schema.Types.ObjectId }
-  $pull?: { employees?: Schema.Types.ObjectId }
+  $pull?: { employees?: Schema.Types.ObjectId; tables?: Schema.Types.ObjectId }
+  $push?: { employees?: Schema.Types.ObjectId; tables?: Schema.Types.ObjectId }
 }

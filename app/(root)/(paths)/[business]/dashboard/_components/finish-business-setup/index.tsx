@@ -2,7 +2,11 @@
 import { axiosInstance } from '@/_lib/axios-instance'
 
 // components
-import { UserPlusIcon, BookOpenIcon } from '@heroicons/react/24/solid'
+import {
+  UserPlusIcon,
+  BookOpenIcon,
+  SquaresPlusIcon,
+} from '@heroicons/react/24/solid'
 import { Card } from '@/_components/molecules/card'
 
 // types
@@ -19,12 +23,15 @@ export const FinishBusinessSetup: FC<FinishBusinessSetupProps> = async ({
 }) => {
   const menu = await axiosInstance.post<MenuDataType>(
     `/api/menu/get-by-business-id`,
-    {
-      businessId: business._id,
-    }
+    { businessId: business._id }
   )
 
-  if (business.employees.length > 0 && menu.data.dishes.length > 0) return null
+  if (
+    business.employees.length > 0 &&
+    business.tables.length > 0 &&
+    menu.data.dishes.length > 0
+  )
+    return null
 
   return (
     <section className='bg-white p-4 rounded-2xl drop-shadow-md'>
@@ -34,7 +41,7 @@ export const FinishBusinessSetup: FC<FinishBusinessSetupProps> = async ({
         plataforma.
       </p>
       <br />
-      <article className='grid grid-cols-2 gap-8'>
+      <article className='grid grid-cols-3 gap-8'>
         {business.employees.length === 0 && (
           <Card
             Icon={UserPlusIcon}
@@ -42,6 +49,15 @@ export const FinishBusinessSetup: FC<FinishBusinessSetupProps> = async ({
             actionLabel='Ve y gestiona tus empleados'
             href={`/${business.slug}/dashboard/empleados`}
             description='Agrega empleados que te ayudaran a gestionar tu negocio y atender a tus clientes'
+          />
+        )}
+        {business.tables.length === 0 && (
+          <Card
+            Icon={SquaresPlusIcon}
+            label='Gestiona a tus mesas'
+            actionLabel='Ve y gestiona tus mesas'
+            href={`/${business.slug}/dashboard/mesas`}
+            description='Agrega mesas para poder gestionar las ordenes de tus clientes'
           />
         )}
         {menu.data.dishes.length === 0 && (
