@@ -1,5 +1,5 @@
 // icons
-import { PlusIcon } from '@heroicons/react/24/solid'
+import { PlusIcon, LinkIcon } from '@heroicons/react/24/solid'
 
 // components
 import { Button } from '@/_components/atoms/button'
@@ -28,7 +28,7 @@ export const Card: FC<CardProps> = (props) => (
               className='w-full'
               value={props.type}
             >
-              <PlusIcon className='size-5 me-2' /> {props.actionLabel}
+              <LinkIcon className='size-5 me-2' /> {props.actionLabel}
             </Button>
           </Link>
         ) : (
