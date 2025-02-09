@@ -28,6 +28,7 @@ export const DishesTable: FC<DishesTableProps> = ({ dishes, business }) => {
     const [useCase] = showModal.split('-')
     return dishCrudCases[useCase as keyof typeof dishCrudCases] ?? (() => null)
   }, [showModal])
+
   const dishId = useMemo(() => {
     const [_, id] = showModal.split('-')
     return id

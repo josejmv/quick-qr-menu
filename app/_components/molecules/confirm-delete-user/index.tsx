@@ -1,18 +1,37 @@
 'use client'
 
+// main tools
+import { axiosInstance } from '~/app/_lib/axios-instance'
+
 // components
 import { Button } from '@/_components/atoms/button'
 import { Alert } from '@/_components/atoms/alert'
 
 // types
+import type { BusinessDataType } from '@/_types/models/business'
 import type { FC } from 'react'
 
-type ConfirmDeleteDishProps = {
+type ConfirmDeleteUserProps = {
   id: string
   onClose: () => void
+  business: BusinessDataType
 }
 
-export const ConfirmDeleteDish: FC<ConfirmDeleteDishProps> = ({ onClose }) => {
+export const ConfirmDeleteUser: FC<ConfirmDeleteUserProps> = ({
+  id,
+  onClose,
+  business,
+}) => {
+  const handleDeleteUser = async () => {
+    const response = await axiosInstance.post('/api/user/delete', {
+      userId: id,
+      businessId: business._id,
+    })
+
+    if (response.data._id) onClose()
+    else alert('Error al eliminar usuario')
+  }
+
   return (
     <div>
       <Alert
@@ -26,7 +45,9 @@ export const ConfirmDeleteDish: FC<ConfirmDeleteDishProps> = ({ onClose }) => {
         <Button variant='GHOST' color='TERTIARY' onClick={onClose}>
           Cancelar
         </Button>
-        <Button color='ERROR'>Eliminar</Button>
+        <Button color='ERROR' onClick={handleDeleteUser}>
+          Eliminar
+        </Button>
       </div>
     </div>
   )

@@ -1,5 +1,4 @@
 // types
-import type { UserDataType } from './user'
 import type { Schema } from 'mongoose'
 
 export type BusinessDataType = {
@@ -17,5 +16,6 @@ export type UpdateBusinessDataType = {
   slug?: string
   description?: string
   menu?: Schema.Types.ObjectId
-  $push?: { employees?: UserDataType }
+  $push?: { employees?: Schema.Types.ObjectId }
+  $pull?: { employees?: Schema.Types.ObjectId }
 }

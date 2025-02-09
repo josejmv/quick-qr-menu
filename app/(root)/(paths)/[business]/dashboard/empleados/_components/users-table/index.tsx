@@ -1,15 +1,18 @@
 'use client'
 
 // main tools
-import { useState } from 'react'
+import { useMemo, useState } from 'react'
 
 // components
-import { CreateUser } from '@/_components/molecules/create-user'
+import { PencilIcon, TrashIcon } from '@heroicons/react/24/solid'
 import { Dialog } from '@/_components/atoms/dialog'
 import { Button } from '@/_components/atoms/button'
 
+// utils
+import { userCrudCases } from './utils'
+
 // types
-import { BusinessDataType } from '@/_types/models/business'
+import type { BusinessDataType } from '@/_types/models/business'
 import type { UserDataType } from '@/_types/models/user'
 import type { FC } from 'react'
 
@@ -19,7 +22,17 @@ type UsersTableProps = {
 }
 
 export const UsersTable: FC<UsersTableProps> = ({ employees, business }) => {
-  const [showModal, setShowModal] = useState(false)
+  const [showModal, setShowModal] = useState('')
+
+  const CrudComponent = useMemo(() => {
+    const [useCase] = showModal.split('-')
+    return userCrudCases[useCase as keyof typeof userCrudCases] ?? (() => null)
+  }, [showModal])
+
+  const dishId = useMemo(() => {
+    const [_, id] = showModal.split('-')
+    return id
+  }, [showModal])
 
   return (
     <>
@@ -28,21 +41,40 @@ export const UsersTable: FC<UsersTableProps> = ({ employees, business }) => {
           <tr>
             <th className='border border-gray-300 p-2'>Name</th>
             <th className='border border-gray-300 p-2'>Email</th>
+            <th className='border border-gray-300 p-2'>Estatus</th>
             <th className='border border-gray-300 p-2'>Acciones</th>
           </tr>
         </thead>
         <tbody>
           {employees.length > 0 ? (
             employees.map((employee) => (
-              <tr key={employee._id} className='border-b border-gray-300'>
+              <tr
+                key={employee._id}
+                className='border-b border-gray-300 text-center'
+              >
                 <td className='border border-gray-300 p-2'>{employee.name}</td>
                 <td className='border border-gray-300 p-2'>{employee.email}</td>
+                <td className='border border-gray-300 p-2'>
+                  {employee.status}
+                </td>
+                <td className='border border-gray-300 p-2'>
+                  <div className='flex justify-center gap-4'>
+                    <PencilIcon
+                      className='w-5 h-5 cursor-pointer'
+                      onClick={() => setShowModal(`EDIT-${employee._id}`)}
+                    />
+                    <TrashIcon
+                      className='w-5 h-5 cursor-pointer'
+                      onClick={() => setShowModal(`DELETE-${employee._id}`)}
+                    />
+                  </div>
+                </td>
               </tr>
             ))
           ) : (
             <tr>
               <td
-                colSpan={3}
+                colSpan={4}
                 className='border border-gray-300 py-8 text-center'
               >
                 No hay usuarios registrados
@@ -52,9 +84,9 @@ export const UsersTable: FC<UsersTableProps> = ({ employees, business }) => {
         </tbody>
         <tfoot>
           <tr>
-            <td colSpan={3} className='border border-gray-300 p-2'>
+            <td colSpan={4} className='border border-gray-300 p-2'>
               <div className='flex justify-end'>
-                <Button onClick={() => setShowModal(true)}>
+                <Button onClick={() => setShowModal('CREATE')}>
                   Agregar empleado
                 </Button>
               </div>
@@ -64,11 +96,16 @@ export const UsersTable: FC<UsersTableProps> = ({ employees, business }) => {
       </table>
 
       <Dialog
-        open={showModal}
+        open={!!showModal}
+        onClose={() => setShowModal('')}
         panelClassName='max-w-screen-sm'
-        onClose={() => setShowModal(false)}
+        className={showModal === 'DELETE' ? '[&>div>div]:px-4' : ''}
       >
-        <CreateUser business={business} onClose={() => setShowModal(false)} />
+        <CrudComponent
+          id={dishId}
+          business={business}
+          onClose={() => setShowModal('')}
+        />
       </Dialog>
     </>
   )
