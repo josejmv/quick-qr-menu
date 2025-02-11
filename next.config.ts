@@ -9,6 +9,8 @@ const nextConfig: NextConfig = {
     NEXTAUTH_URL: process.env.NEXTAUTH_URL,
     VAPID_PRIVATE_KEY: process.env.VAPID_PRIVATE_KEY,
     NEXT_PUBLIC_VAPID_PUBLIC_KEY: process.env.NEXT_PUBLIC_VAPID_PUBLIC_KEY,
+    NEXT_PUBLIC_SUBSCRIPTION_PUBLIC_KEY:
+      process.env.NEXT_PUBLIC_SUBSCRIPTION_PUBLIC_KEY,
   },
 
   // webpack: (config) => {

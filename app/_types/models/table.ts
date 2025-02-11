@@ -9,5 +9,6 @@ export type TableDataType = {
 }
 
 export type UpdateTableDataType = {
-  name: string
+  name?: string
+  $push?: { orders?: Schema.Types.ObjectId }
 }
