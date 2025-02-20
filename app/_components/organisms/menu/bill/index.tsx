@@ -2,13 +2,16 @@
 
 // main tools
 import { axiosInstance } from '@/_lib/axios-instance'
-import { useEffect, useState } from 'react'
+import { useCallback, useEffect, useState } from 'react'
 
 // components
+import { InputSelect } from '@/_components/atoms/inputs'
+import { Divider } from '@/_components/atoms/divider'
 import { Fragment } from 'react'
 
 // types
-import type { OrderedDishDataType } from '~/app/_types/models/ordered-dish'
+import type { OrderedDishDataType } from '@/_types/models/ordered-dish'
+import type { SelectOptionType } from '@/_components/atoms/inputs'
 import type { OrderDataType } from '@/_types/models/order'
 import type { DishDataType } from '@/_types/models/dish'
 import type { FC } from 'react'
@@ -25,13 +28,36 @@ interface formattedOrderedDishesDataType
 export const Bill: FC<BillProps> = ({ orderState }) => {
   const [orderedDishes, setOrderedDishes] =
     useState<formattedOrderedDishesDataType[]>()
-  const [currency, setCurrency] = useState('COP')
+  const [currency, setCurrency] = useState<SelectOptionType>()
 
-  const handleFormatPrice = (dish: DishDataType, currency: string) =>
-    `${
-      dish.price.find((price) => price.currency === currency)?.basePrice ??
-      'Sin precio en'
-    } ${currency}`
+  const handleFormatPrice = useCallback(
+    (dish: DishDataType, currency: string) =>
+      `${
+        dish.price.find((price) => price.currency === currency)?.basePrice ??
+        'Sin precio en'
+      } ${currency}`,
+    []
+  )
+
+  const handleFormatTotal = useCallback(() => {
+    const total = orderedDishes?.reduce(
+      (acc, item) =>
+        acc +
+        item.quantity *
+          parseFloat(
+            `${
+              item.dish.price.find(
+                (price) => price.currency === (currency?.value ?? 'COP')
+              )?.basePrice ?? 0
+            }`
+          ),
+      0
+    )
+    return new Intl.NumberFormat('es-CO', {
+      style: 'currency',
+      currency: currency?.value ?? 'COP',
+    }).format(total ?? 0)
+  }, [orderedDishes, currency])
 
   useEffect(() => {
     ;(async () => {
@@ -63,14 +89,20 @@ export const Bill: FC<BillProps> = ({ orderState }) => {
     <div>
       <div className='flex justify-between items-center'>
         <h1 className='text-2xl font-bold'>Factura</h1>
-        <select
+        <InputSelect
           value={currency}
-          onChange={(ev) => setCurrency(ev.target.value)}
-        >
-          <option value='COP'>COP</option>
-          <option value='USD'>USD</option>
-        </select>
+          inputWrapperProps={{ containerClassName: 'w-1/4' }}
+          onChange={(ev) => setCurrency(ev.target.value as SelectOptionType)}
+          options={[
+            { label: 'COP', value: 'COP' },
+            { label: 'USD', value: 'USD' },
+          ]}
+        />
       </div>
+      <p>
+        Estatus:{' '}
+        {orderState.status === 'processing' ? 'En proceso' : 'Completado'}
+      </p>
       <br />
       <div className='grid grid-cols-3 gap-3'>
         <p className='text-xl font-semibold text-center'>Producto</p>
@@ -82,10 +114,15 @@ export const Bill: FC<BillProps> = ({ orderState }) => {
             <p className='text-center'>{item.dish.name}</p>
             <p className='text-center'>{item.quantity}</p>
             <p className='text-center'>
-              {handleFormatPrice(item.dish, currency)}
+              {handleFormatPrice(item.dish, currency?.value ?? 'COP')}
             </p>
           </Fragment>
         ))}
+      </div>
+      <Divider className='my-4' />
+      <div className='flex justify-between'>
+        <p className='text-xl font-semibold'>Total</p>
+        <p className='text-xl font-semibold'>{handleFormatTotal()}</p>
       </div>
     </div>
   )
