@@ -25,7 +25,7 @@ const PublicMenuPage: NextPage<PublicMenuPageProps> = async ({
   const business = await axiosInstance.post('/api/business/get-by-slug', {
     slug,
   })
-  const dishes = await axiosInstance.post('/api/dish/get-all', {
+  const dishes = await axiosInstance.post('/api/dish/get-all-visible', {
     menuId: business.data.menu,
   })
   const openedOrder = await axiosInstance.post('/api/order/get-opened-order', {
