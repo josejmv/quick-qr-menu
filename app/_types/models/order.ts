@@ -7,11 +7,11 @@ export type OrderDataType = {
   bill: Schema.Types.ObjectId
   table: Schema.Types.ObjectId
   dishes: OrderedDishDataType[]
-  status: 'pending' | 'procesing' | 'completed' | 'cancelled'
+  status: 'pending' | 'processing' | 'completed' | 'cancelled'
 }
 
 export type UpdateOrderDataType = {
-  status?: 'pending' | 'procesing' | 'completed' | 'cancelled'
+  status?: 'pending' | 'processing' | 'completed' | 'cancelled'
   $pull?: { dishes?: { dish: Schema.Types.ObjectId; quantity?: number } }
   $push?: { dishes?: { dish: Schema.Types.ObjectId; quantity?: number } }
 }

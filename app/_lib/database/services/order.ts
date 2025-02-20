@@ -23,7 +23,7 @@ export const getOpenedOrderByTableId = async (tableId: string) => {
 
   const orderResponse = await OrderModel.findOne({
     table: tableId,
-    status: 'pending',
+    status: { $in: ['processing', 'pending'] },
   }).catch((error) => error)
 
   if (orderResponse?.data?.error) return orderResponse.data.error

@@ -33,6 +33,3 @@ async function dbConnect() {
 }
 
 export default dbConnect
-
-// josejmvasquez
-// 7H5WcMXX8sAJbUW4

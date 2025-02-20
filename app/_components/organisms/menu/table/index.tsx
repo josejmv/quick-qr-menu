@@ -57,6 +57,11 @@ export const MenuTable: FC<MenuTableProps> = ({ dishes, orderState }) => {
     })
   }
 
+  const handleSendOrder = async () =>
+    axiosInstance.post('/api/subscription/send-order', {
+      orderId: orderState._id,
+    })
+
   return (
     <table className='w-full border-collapse table-fixed'>
       <thead>
@@ -139,10 +144,7 @@ export const MenuTable: FC<MenuTableProps> = ({ dishes, orderState }) => {
         <tr>
           <td colSpan={4} className='border border-gray-300 p-2'>
             <div className='flex justify-end'>
-              <Button
-                color='SECONDARY'
-                onClick={() => alert('Procesando pedido')}
-              >
+              <Button color='SECONDARY' onClick={handleSendOrder}>
                 Procesar pedido
               </Button>
             </div>

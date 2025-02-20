@@ -5,6 +5,7 @@ import { useEffect, useState } from 'react'
 
 // components
 import { MenuTable } from '@/_components/organisms/menu/table'
+import { Bill } from '@/_components/organisms/menu/bill'
 
 // hooks
 import { useSubscription } from '@/_hooks/use-subscription'
@@ -13,7 +14,7 @@ import { useSubscription } from '@/_hooks/use-subscription'
 import { SubscriptionActions } from '@/_commons/subscription-actions-enum'
 
 // types
-import { OrderedDishDataType } from '@/_types/models/ordered-dish'
+import type { OrderedDishDataType } from '@/_types/models/ordered-dish'
 import type { OrderDataType } from '@/_types/models/order'
 import type { DishDataType } from '@/_types/models/dish'
 import type { FC } from 'react'
@@ -75,11 +76,23 @@ export const MenuView: FC<MenuViewProps> = ({ order, dishes }) => {
         }
       }
     )
+
+    subscriptionClient?.bind(
+      SubscriptionActions.SEND,
+      (response: { data: OrderDataType }) => {
+        const { data } = response
+        setOrderState({ ...data })
+      }
+    )
   }, [subscriptionClient, orderState])
 
   return (
     <div className='bg-gray-500 bg-opacity-30 backdrop-blur-lg text-primary-content p-8 rounded-3xl'>
-      <MenuTable orderState={orderState} dishes={dishes} />
+      {orderState.status === 'pending' ? (
+        <MenuTable orderState={orderState} dishes={dishes} />
+      ) : (
+        <Bill orderState={orderState} />
+      )}
     </div>
   )
 }

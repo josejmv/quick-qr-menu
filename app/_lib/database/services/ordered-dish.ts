@@ -79,3 +79,17 @@ export const updateOrderedDish = async (body: {
     JSON.stringify(orderedDishResponse)
   ) as OrderedDishDataType[]
 }
+
+export const getOrderedDishesByManyIds = async (ids: string[]) => {
+  await dbConnect()
+
+  const orderedDishesResponse = await OrderedDishModel.find({
+    _id: { $in: ids },
+  }).catch((error) => error)
+
+  if (orderedDishesResponse.errors) return orderedDishesResponse.errors
+  else
+    return JSON.parse(
+      JSON.stringify(orderedDishesResponse)
+    ) as OrderedDishDataType[]
+}
