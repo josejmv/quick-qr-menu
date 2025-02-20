@@ -5,12 +5,28 @@ import dbConnect from '@/_lib/database/db-connect'
 import DishModel from '@/_lib/database/models/dish'
 
 // types
-import type { DishDataType } from '@/_types/models/dish'
+import type { DishDataType, UpdateDishDataType } from '@/_types/models/dish'
 
 export const createDish = async (data: DishDataType) => {
   await dbConnect()
 
   const dishResponse = await DishModel.create(data).catch((error) => error)
+
+  if (dishResponse.errors) return dishResponse.errors
+  else return JSON.parse(JSON.stringify(dishResponse)) as DishDataType
+}
+
+export const updateDish = async (body: {
+  dishId: string
+  data: UpdateDishDataType
+}) => {
+  await dbConnect()
+
+  const dishResponse = await DishModel.findByIdAndUpdate(
+    body.dishId,
+    body.data,
+    { new: true }
+  ).catch((error) => error)
 
   if (dishResponse.errors) return dishResponse.errors
   else return JSON.parse(JSON.stringify(dishResponse)) as DishDataType
@@ -33,6 +49,15 @@ export const getDishesByMenuId = async (id: string) => {
   const dishResponse = await DishModel.find({ menu: id }).catch(
     (error) => error
   )
+
+  if (dishResponse.errors) return dishResponse.errors
+  else return JSON.parse(JSON.stringify(dishResponse)) as DishDataType
+}
+
+export const getDishById = async (id: string) => {
+  await dbConnect()
+
+  const dishResponse = await DishModel.findById(id).catch((error) => error)
 
   if (dishResponse.errors) return dishResponse.errors
   else return JSON.parse(JSON.stringify(dishResponse)) as DishDataType
