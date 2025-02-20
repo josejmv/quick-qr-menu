@@ -8,7 +8,12 @@ export type DishDataType = {
   description: string
   menu: Schema.Types.ObjectId
   category: Schema.Types.ObjectId
-  price: { basePrice: number; discountPrice: number; currency: 'COP' | 'USD' }[]
+  price: {
+    _id: string
+    basePrice: number
+    discountPrice: number
+    currency: 'COP' | 'USD'
+  }[]
 }
 
 export type UpdateDishDataType = {

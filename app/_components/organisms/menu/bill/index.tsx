@@ -7,6 +7,7 @@ import { useCallback, useEffect, useState } from 'react'
 // components
 import { InputSelect } from '@/_components/atoms/inputs'
 import { Divider } from '@/_components/atoms/divider'
+import { Badge } from '@/_components/atoms/badge'
 import { Fragment } from 'react'
 
 // types
@@ -28,7 +29,10 @@ interface formattedOrderedDishesDataType
 export const Bill: FC<BillProps> = ({ orderState }) => {
   const [orderedDishes, setOrderedDishes] =
     useState<formattedOrderedDishesDataType[]>()
-  const [currency, setCurrency] = useState<SelectOptionType>()
+  const [currency, setCurrency] = useState<SelectOptionType>({
+    label: 'COP',
+    value: 'COP',
+  })
 
   const handleFormatPrice = useCallback(
     (dish: DishDataType, currency: string) =>
@@ -87,21 +91,29 @@ export const Bill: FC<BillProps> = ({ orderState }) => {
 
   return (
     <div>
-      <div className='flex justify-between items-center'>
+      <div className='flex flex-col md:flex-row justify-between items-stretch md:items-center'>
         <h1 className='text-2xl font-bold'>Factura</h1>
         <InputSelect
           value={currency}
-          inputWrapperProps={{ containerClassName: 'w-1/4' }}
           onChange={(ev) => setCurrency(ev.target.value as SelectOptionType)}
+          inputWrapperProps={{
+            hintTextClassName: 'text-white',
+            containerClassName: 'md:w-1/4 my-4 md:my-0',
+            hintText: 'Muestra los precios en otras monedas',
+          }}
           options={[
             { label: 'COP', value: 'COP' },
             { label: 'USD', value: 'USD' },
           ]}
         />
       </div>
-      <p>
+      <p className='flex items-center gap-3'>
         Estatus:{' '}
-        {orderState.status === 'processing' ? 'En proceso' : 'Completado'}
+        <Badge
+          variant={orderState.status === 'processing' ? 'INFO' : 'SUCCESS'}
+        >
+          {orderState.status === 'processing' ? 'En proceso' : 'Completado'}
+        </Badge>
       </p>
       <br />
       <div className='grid grid-cols-3 gap-3'>
