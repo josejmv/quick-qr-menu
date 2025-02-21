@@ -13,7 +13,7 @@ import ReactSelect from 'react-select'
 import { InputSelectStyles } from './utils'
 
 // types
-import type { InputSelectProps } from './types'
+import type { InputSelectProps, SelectOptionType } from './types'
 import type { GroupBase } from 'react-select'
 import type Select from 'react-select/base'
 import type { FC, Ref } from 'react'
@@ -52,17 +52,17 @@ export const InputSelect: FC<InputSelectProps> = forwardRef(
         onChange={(value) =>
           inputProps.onChange?.({
             target: {
-              value: value as { [k: string]: string },
               name: inputProps.name,
+              value: value as SelectOptionType | SelectOptionType[],
             },
           })
         }
         styles={InputSelectStyles({
           ...inputProps,
-          inputWrapperProps,
           isError,
           disabled,
           maxValuesToShow,
+          inputWrapperProps,
         })}
         components={{
           ClearIndicator: (clearIndicatorProps) => (
