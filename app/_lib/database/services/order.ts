@@ -32,6 +32,19 @@ export const getOpenedOrderByTableId = async (tableId: string) => {
   return JSON.parse(JSON.stringify(orderResponse)) as OrderDataType
 }
 
+export const getOrdersByTableIds = async (tableIds: string[]) => {
+  await dbConnect()
+
+  const ordersResponse = await OrderModel.find({
+    table: { $in: tableIds },
+  }).catch((error) => error)
+
+  if (ordersResponse?.data?.error) return ordersResponse.data.error
+  else if (!ordersResponse) return undefined
+
+  return JSON.parse(JSON.stringify(ordersResponse)) as OrderDataType[]
+}
+
 export const updateOrder = async (body: {
   orderId: string
   data: UpdateOrderDataType

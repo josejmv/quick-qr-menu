@@ -14,6 +14,7 @@ import {
   PowerIcon,
   Squares2X2Icon,
   DocumentTextIcon,
+  DocumentCheckIcon,
 } from '@heroicons/react/24/solid'
 
 // types
@@ -44,6 +45,11 @@ export const Sidebar: FC<SidebarProps> = ({ slug }) => (
       <Link title='Recetas' href={`/${slug}/dashboard/platos`}>
         <Button variant='GHOST' color='TERTIARY' className='mb-4'>
           <DocumentTextIcon className='w-6 h-6' />
+        </Button>
+      </Link>
+      <Link title='Recetas' href={`/${slug}/dashboard/ordenes`}>
+        <Button variant='GHOST' color='TERTIARY' className='mb-4'>
+          <DocumentCheckIcon className='w-6 h-6' />
         </Button>
       </Link>
     </div>
