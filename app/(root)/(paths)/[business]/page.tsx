@@ -2,6 +2,7 @@
 import { axiosInstance } from '@/_lib/axios-instance'
 
 // components
+import { MenuView } from './_components/menu/view'
 import Image from 'next/image'
 
 // providers
@@ -9,7 +10,6 @@ import { SubscriptionProvider } from '@/_contexts/subscription/provider'
 
 // types
 import type { NextPage } from 'next'
-import { MenuView } from '~/app/_components/organisms/menu/view'
 
 type PublicMenuPageProps = {
   params: Promise<{ business: string }>
@@ -38,9 +38,9 @@ const PublicMenuPage: NextPage<PublicMenuPageProps> = async ({
     : { data: [] }
 
   const order = openedOrder.data._id
-    ? { data: { ...openedOrder.data, dishes: orderedDishes.data } }
+    ? { data: { ...openedOrder.data, orderedDishes: orderedDishes.data } }
     : await axiosInstance.post('/api/order/create', {
-        dishes: [],
+        orderedDishes: [],
         status: 'pending',
         table: queryParams.tableId,
       })

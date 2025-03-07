@@ -67,7 +67,7 @@ export const Bill: FC<BillProps> = ({ orderState }) => {
     ;(async () => {
       const orderedDishes = await axiosInstance.post(
         '/api/ordered-dish/get-many',
-        { orderedDishIds: orderState.dishes.map((dish) => dish._id) }
+        { orderedDishIds: orderState.orderedDishes.map((dish) => dish._id) }
       )
       const dishes = await axiosInstance.post('/api/dish/get-many', {
         dishIds: orderedDishes.data.map(

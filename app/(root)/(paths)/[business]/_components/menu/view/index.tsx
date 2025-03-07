@@ -4,8 +4,8 @@
 import { useEffect, useState } from 'react'
 
 // components
-import { MenuTable } from '@/_components/organisms/menu/table'
-import { Bill } from '@/_components/organisms/menu/bill'
+import { MenuTable } from '../table'
+import { Bill } from '../bill'
 
 // hooks
 import { useSubscription } from '@/_hooks/use-subscription'
@@ -21,7 +21,9 @@ import type { FC } from 'react'
 
 type MenuViewProps = {
   dishes: DishDataType[]
-  order: Omit<OrderDataType, 'dishes'> & { dishes: OrderedDishDataType[] }
+  order: Omit<OrderDataType, 'orderedDishes'> & {
+    orderedDishes: OrderedDishDataType[]
+  }
 }
 
 export const MenuView: FC<MenuViewProps> = ({ order, dishes }) => {
@@ -38,7 +40,10 @@ export const MenuView: FC<MenuViewProps> = ({ order, dishes }) => {
       SubscriptionActions.ADD,
       (response: { data: OrderedDishDataType }) => {
         const { data } = response
-        setOrderState({ ...orderState, dishes: [...orderState.dishes, data] })
+        setOrderState({
+          ...orderState,
+          orderedDishes: [...orderState.orderedDishes, data],
+        })
       }
     )
 
@@ -47,10 +52,10 @@ export const MenuView: FC<MenuViewProps> = ({ order, dishes }) => {
       (response: { data: OrderedDishDataType }) => {
         const { data } = response
         setOrderState((prev) => {
-          const newDishes = prev.dishes.map((item) =>
+          const newDishes = prev.orderedDishes.map((item) =>
             item._id === data._id ? data : item
           )
-          return { ...prev, dishes: newDishes }
+          return { ...prev, orderedDishes: newDishes }
         })
       }
     )
@@ -61,17 +66,17 @@ export const MenuView: FC<MenuViewProps> = ({ order, dishes }) => {
         const { data } = response
         if (data.deleted) {
           setOrderState((prev) => {
-            const newDishes = prev.dishes.filter(
+            const newDishes = prev.orderedDishes.filter(
               (item) => item._id !== data._id
             )
-            return { ...prev, dishes: newDishes }
+            return { ...prev, orderedDishes: newDishes }
           })
         } else {
           setOrderState((prev) => {
-            const newDishes = prev.dishes.map((item) =>
+            const newDishes = prev.orderedDishes.map((item) =>
               item._id === data._id ? data : item
             )
-            return { ...prev, dishes: newDishes }
+            return { ...prev, orderedDishes: newDishes }
           })
         }
       }

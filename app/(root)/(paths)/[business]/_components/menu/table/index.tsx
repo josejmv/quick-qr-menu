@@ -1,7 +1,7 @@
 'use client'
 
 // main tools
-import { axiosInstance } from '~/app/_lib/axios-instance'
+import { axiosInstance } from '@/_lib/axios-instance'
 import { useMemo, useState } from 'react'
 
 // components
@@ -41,7 +41,7 @@ export const MenuTable: FC<MenuTableProps> = ({ dishes, orderState }) => {
   }, [showModal])
 
   const handleAddOtherDish = async (dish: DishDataType) => {
-    const orderedDish = orderState.dishes.find(
+    const orderedDish = orderState.orderedDishes.find(
       (dishToCompare) =>
         dishToCompare.dish === (dish._id as unknown as Schema.Types.ObjectId)
     )
@@ -62,7 +62,7 @@ export const MenuTable: FC<MenuTableProps> = ({ dishes, orderState }) => {
   }
 
   const handleRemoveDish = async (dish: DishDataType) => {
-    const orderedDish = orderState.dishes.find(
+    const orderedDish = orderState.orderedDishes.find(
       (dishToCompare) =>
         dishToCompare.dish === (dish._id as unknown as Schema.Types.ObjectId)
     )
@@ -118,7 +118,7 @@ export const MenuTable: FC<MenuTableProps> = ({ dishes, orderState }) => {
                 </td>
                 <td className='border border-gray-300 p-2'>
                   <div className='flex justify-center gap-4'>
-                    {orderState.dishes.some((item) => {
+                    {orderState.orderedDishes.some((item) => {
                       const id = dish._id as unknown as Schema.Types.ObjectId
                       return item.dish === id
                     }) ? (
@@ -130,7 +130,7 @@ export const MenuTable: FC<MenuTableProps> = ({ dishes, orderState }) => {
                             onClick={() => handleRemoveDish(dish)}
                           />
                           {
-                            orderState.dishes.find((item) => {
+                            orderState.orderedDishes.find((item) => {
                               const id =
                                 dish._id as unknown as Schema.Types.ObjectId
                               return item.dish === id
@@ -169,7 +169,11 @@ export const MenuTable: FC<MenuTableProps> = ({ dishes, orderState }) => {
           <tr>
             <td colSpan={4} className='border border-gray-300 p-2'>
               <div className='flex justify-end'>
-                <Button color='SECONDARY' onClick={handleSendOrder}>
+                <Button
+                  color='SECONDARY'
+                  onClick={handleSendOrder}
+                  disabled={orderState.orderedDishes.length === 0}
+                >
                   Procesar pedido
                 </Button>
               </div>
