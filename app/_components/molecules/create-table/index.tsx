@@ -65,8 +65,8 @@ export const CreateTable: FC<CreateTableProps> = ({ onClose, business }) => {
           isError={!!formState.errors.name}
           {...register('name', { required: 'Este campo es requerido' })}
           inputWrapperProps={{
-            label: 'Número de la mesa',
             hintText: formState.errors.name?.message,
+            label: 'Número o identificador de la mesa',
           }}
         />
 
