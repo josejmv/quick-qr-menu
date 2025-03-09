@@ -24,7 +24,7 @@ export async function POST(req: Request) {
 
   await updateOrder({
     orderId: body.orderId,
-    data: { $push: { dishes: orderedDish._id } },
+    data: { $push: { orderedDishes: orderedDish._id } },
   })
 
   pusherServer.trigger(`order-${body.orderId}`, SubscriptionActions.ADD, {

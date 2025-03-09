@@ -11,11 +11,7 @@ export type OrderDataType = {
 }
 
 export type UpdateOrderDataType = {
+  $pull?: { orderedDishes: Schema.Types.ObjectId }
+  $push?: { orderedDishes?: Schema.Types.ObjectId }
   status?: 'pending' | 'processing' | 'completed' | 'cancelled'
-  $pull?: {
-    dishes?: { orderedDishes: Schema.Types.ObjectId; quantity?: number }
-  }
-  $push?: {
-    dishes?: { orderedDishes: Schema.Types.ObjectId; quantity?: number }
-  }
 }

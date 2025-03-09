@@ -119,7 +119,7 @@ export const Bill: FC<BillProps> = ({ orderState }) => {
       <div className='grid grid-cols-3 gap-3'>
         <p className='text-xl font-semibold text-center'>Producto</p>
         <p className='text-xl font-semibold text-center'>Cantidad</p>
-        <p className='text-xl font-semibold text-center'>Precio</p>
+        <p className='text-xl font-semibold text-center'>Precio por unidad</p>
 
         {orderedDishes?.map((item) => (
           <Fragment key={item._id}>

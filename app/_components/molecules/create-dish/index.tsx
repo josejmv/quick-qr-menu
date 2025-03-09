@@ -189,7 +189,7 @@ export const CreateDish: FC<CreateDishProps> = ({ onClose, business }) => {
         <div className='flex gap-3 items-center'>
           <Checkbox checked={getValues('visible')} {...register('visible')} />
           <p className='text-base text-base-content font-medium'>
-            {getValues('visible') ? 'Mostrar' : 'Ocultar'} plato en el menú
+            {getValues('visible') ? 'Ocultar' : 'Mostrar'} plato en el menú
           </p>
         </div>
 

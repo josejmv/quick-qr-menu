@@ -18,7 +18,7 @@ export async function POST(req: Request) {
   if (body.quantity === 0)
     await updateOrder({
       orderId: orderedDish.order,
-      data: { $pull: { dishes: orderedDish._id } },
+      data: { $pull: { orderedDishes: orderedDish._id } },
     })
 
   pusherServer.trigger(`order-${body.orderId}`, SubscriptionActions.REMOVE, {

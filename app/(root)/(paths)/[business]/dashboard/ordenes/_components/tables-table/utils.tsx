@@ -1,13 +1,6 @@
 // main tools
 import dynamic from 'next/dynamic'
 
-const importCreateTableComponent = dynamic(
-  () =>
-    import('@/_components/molecules/create-table').then(
-      (mod) => mod.CreateTable
-    ),
-  { loading: () => <p>CARGANDO</p> }
-)
 const importDeleteTableComponent = dynamic(
   () =>
     import('@/_components/molecules/confirm-delete-table').then(
@@ -23,8 +16,7 @@ const importUpdateTableComponent = dynamic(
   { loading: () => <p>CARGANDO</p> }
 )
 
-export const tableCrudCases = {
-  CREATE: importCreateTableComponent,
+export const orderCrudCases = {
   DELETE: importDeleteTableComponent,
   UPDATE: importUpdateTableComponent,
 }
